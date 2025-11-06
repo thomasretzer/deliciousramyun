@@ -1,0 +1,236 @@
+/* Reset margins and padding */
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* The background */
+body {
+    background-image: url("../images/backgrounds/clouds.mp4");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+    background-size: cover;   /* ensures full coverage */
+    background-color: #000;   /* fallback color */
+    font-family: "Helvetica", Arial, sans-serif; /* updated font */
+    font-size: 16px;          /* base font size */
+    line-height: 1.6;         /* readability */
+    color: #ffffff;           /* default text color (white for dark bg) */
+}
+
+/* Centered logo */
+.logo-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.logo-container a {
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+
+.logo-container a:hover {
+    transform: scale(1.1);
+}
+
+.logo-container img {
+    width: 600px; /* adjust size as needed */
+    height: auto;
+}
+
+/* Optional heading */
+h1 {
+    color: white;
+    text-align: center;
+    margin-top: 40vh;
+    font-family: "Helvetica", Arial, sans-serif; /* ensure headings use Helvetica */
+    font-weight: 600; /* slightly bold */
+}
+
+/* Cloud cursor */
+.cloud-cursor {
+    position: fixed;
+    width: 40px;
+    height: 40px;
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 0.15s ease-out; /* slightly slower for trailing effect */
+    opacity: 0.8;
+}
+
+
+/* Youtube Integration*/
+/* Make the entire video grid a centered box */
+/* Centered responsive video grid */
+.video-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 300px); /* 3 per row by default */
+    gap: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    justify-content: center;
+}
+
+/* Each video container */
+.video-container {
+    width: 300px;
+    height: 168.75px; /* 16:9 aspect ratio */
+    overflow: hidden;
+}
+
+.video-container iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
+}
+
+/* Tablet: 2 per row */
+@media (max-width: 1000px) {
+    .video-grid {
+        grid-template-columns: repeat(2, 300px);
+    }
+}
+
+/* Mobile: 1 per row */
+@media (max-width: 650px) {
+    .video-grid {
+        grid-template-columns: repeat(1, 300px);
+    }
+}
+
+/* Instagram */
+/* Instagram Section Wrapper */
+.insta-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: absolute;            /* center the whole section */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  width: 100%;
+  color: white;                  /* assuming your background is dark */
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+/* Headline */
+.insta-section h2 {
+  margin-bottom: 20px;
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+/* Instagram Grid */
+.insta-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+/* Instagram Embed Style */
+.instagram-media {
+  max-width: 300px;
+  width: 100%;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #fff;
+}
+
+/* About Section Layout */
+.about-section {
+  display: flex;
+  align-items: flex-start;  /* 👈 align top edges instead of center */
+  justify-content: center;
+  gap: 60px;
+  padding: 80px 10%;
+  color: white;
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+/* Media Column (Left Side) */
+.media-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 40%;
+  gap: 20px;
+}
+
+.media-column img,
+.media-column video {
+  width: 85%;
+  height: auto;
+  object-fit: cover;       /* ensures both align visually */
+  border-radius: 12px;
+  display: block;
+}
+
+/* Text Column (Right Side) */
+.text-column {
+  width: 70%;
+  text-align: left;
+}
+
+.text-column h2 {
+  font-size: 2.5rem;
+  margin-top: 0;  
+  margin-bottom: 20px;
+}
+
+.text-column {
+  width: 50%;
+  text-align: left;
+  margin-top: 0;  
+  margin-left: 40px;   /* 👈 add this line */
+}
+
+.text-column p {
+  margin-top: 0;
+  line-height: 1.6;
+}
+
+/* Responsive Behavior */
+@media (max-width: 900px) {
+  .about-section {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .media-column,
+  .text-column {
+    width: 100%;
+  }
+
+  .media-column img,
+  .media-column video {
+    max-width: 100px;
+  }
+}
+
+
+.site-footer {
+  text-align: center;
+  padding: 20px 0;
+  color: white;             /* or another color that stands out on your background */
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 0.9rem;
+  width: 100%;
+  position: fixed;          /* optional: keeps it at the bottom of the viewport */
+  bottom: 0;
+  z-index: 100;
+  background: transparent;  /* no box or background color */
+}
+
