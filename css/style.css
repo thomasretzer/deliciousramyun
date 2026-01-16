@@ -8,16 +8,17 @@ html, body {
 
 /* The background */
 body {
-    background-image: url("../images/backgrounds/clouds.mp4");
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-attachment: fixed;
-    background-size: cover;   /* ensures full coverage */
-    background-color: #000;   /* fallback color */
-    font-family: "Helvetica", Arial, sans-serif; /* updated font */
-    font-size: 16px;          /* base font size */
-    line-height: 1.6;         /* readability */
-    color: #ffffff;           /* default text color (white for dark bg) */
+    /* Remove or comment out the background-image line */
+    /* background-image: url("../images/backgrounds/clouds.mp4"); */
+    background-color: #000;
+    font-family: "Helvetica", Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    color: #ffffff;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
 }
 
 /* Centered logo */
@@ -27,6 +28,17 @@ body {
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
+}
+
+/* Video Background - Full Screen */
+.video-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;  /* ensures video covers entire screen */
+    z-index: -1;        /* keeps it behind all content */
 }
 
 .logo-container a {
@@ -63,6 +75,19 @@ h1 {
     opacity: 0.8;
 }
 
+/* Link styling to match body text */
+a {
+    color: #ffffff;                    /* white like your other text */
+    text-decoration: none;             /* removes underline */
+    font-family: "Helvetica", Arial, sans-serif; /* matches your body font */
+    font-size: 16px;                   /* matches your base font size */
+    transition: font-size 0.3s ease;   /* smooth size change */
+}
+
+/* Increase size on hover */
+a:hover {
+    font-size: 20px;                   /* larger on hover */
+} 
 
 /* Youtube Integration*/
 /* Make the entire video grid a centered box */
@@ -234,3 +259,95 @@ h1 {
   background: transparent;  /* no box or background color */
 }
 
+/* Burger Menu Button */
+/* Burger Menu Button */
+.burger-menu {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+
+.burger-icon {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.burger-icon span {
+    width: 30px;
+    height: 3px;
+    background-color: white;
+    transition: all 0.3s ease;
+    border-radius: 2px;
+}
+
+/* Burger animation when active */
+.burger-icon.active span:nth-child(1) {
+    transform: rotate(45deg) translate(8px, 8px);
+}
+
+.burger-icon.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.burger-icon.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(8px, -8px);
+}
+
+/* Navigation Menu */
+
+
+
+/* Navigation Menu */
+.nav-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    opacity: 0; /* hidden */
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    z-index: 999;
+    overflow: hidden;
+}
+
+.nav-menu.active {
+    opacity: 1; /* visible */
+    visibility: visible;
+}
+
+/* Background video for menu */
+.menu-video-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1; /* behind the links */
+}
+
+/* Navigation Links - centered */
+.nav-menu a {
+    color: #ffffff;
+    text-decoration: none;
+    font-family: "Helvetica", Arial, sans-serif;
+    font-size: 32px; /* larger for center display */
+    transition: font-size 0.3s ease;
+    z-index: 1; /* above video */
+}
+
+.nav-menu a:hover {
+    font-size: 38px;
+}

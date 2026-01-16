@@ -9,6 +9,33 @@
 </head>
 <body>
 
+<div class="burger-menu">
+    <button class="burger-icon" id="burgerBtn">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+</div>
+
+<!-- Burger Menu Button -->
+<nav class="nav-menu" id="navMenu">
+    <!-- Background video for the menu -->
+    <video class="menu-video-background" autoplay muted loop playsinline>
+        <source src="images/backgrounds/clouds_reverse.mp4" type="video/mp4">
+    </video>
+    
+    <!-- Centered links -->
+    <a href="index.html">Home</a>
+    <a href="content_youtube.html">YouTube</a>
+    <a href="content_instagram.html">Instgram</a>
+    <a href="about.html">About</a>
+</nav>
+
+
+<video class="video-background" autoplay muted loop playsinline>
+    <source src="images/backgrounds/clouds.mp4" type="video/mp4">
+</video>
+
 <section class="about-section">
   <div class="media-column">
     <img src="images/about/me.jpg" alt="About us photo">
@@ -30,6 +57,7 @@
       <p>
         Started in 2020, when the world was lost including me. 
       </p>
+      
     </p>
   </div>
 </section>
@@ -38,6 +66,6 @@
   <p>© delicious ramyun 2025. Last updated: undefined</p>
 </footer>
 
-
+      <script src="js/menu.js"></script>
 </body>
 </html>
