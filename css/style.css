@@ -340,7 +340,7 @@ a:hover {
 
 /* Navigation Links - centered */
 .nav-menu a {
-    color: #ffffff;
+    color: #000000;
     text-decoration: none;
     font-family: "Helvetica", Arial, sans-serif;
     font-size: 32px; /* larger for center display */
