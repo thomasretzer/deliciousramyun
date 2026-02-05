@@ -3,392 +3,383 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Head in the clouds - Music</title>
+    <title>Head in the clouds - Videos</title>
     <link rel="icon" href="images/favicon/favicon32.ico" type="image/x-icon">
     <link rel="stylesheet" href="css/style.css">
     <style>
-        /* Windows 95 Player Specific Styles */
+        * {
+            box-sizing: border-box;
+        }
+
         .content-wrapper {
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            padding-bottom: 80px;
+            min-height: calc(100vh - 80px);
+            padding: 60px 20px 100px 20px;
+            position: relative;
         }
 
-        .window {
-            background: #c0c0c0;
-            border: 2px solid;
-            border-color: #dfdfdf #000 #000 #dfdfdf;
-            box-shadow: 2px 2px 0 rgba(0,0,0,0.2);
-            width: 100%;
-            max-width: 640px;
-            font-family: 'MS Sans Serif', Arial, sans-serif;
-            transition: all 0.3s ease;
-        }
-
-        .window.closed {
-            opacity: 0;
-            transform: scale(0.95);
-            pointer-events: none;
-        }
-
-        .window.minimized {
-            transform: scale(0) translateY(100vh);
-            opacity: 0;
-        }
-
-        .window.maximized {
-            max-width: 95vw;
-            width: 95vw;
-            height: 90vh;
-        }
-
-        .window.maximized .window-body {
-            height: calc(90vh - 50px);
-            overflow: auto;
-        }
-
-        .window.maximized .player-container {
-            min-height: 400px;
-        }
-
-        /* Taskbar for minimized window */
-        .taskbar {
+        .menu-bar {
             position: fixed;
-            bottom: 0;
+            top: 0;
             left: 0;
-            width: 100%;
-            height: 40px;
-            background: #c0c0c0;
-            border-top: 2px solid #fff;
-            display: flex;
-            align-items: center;
-            padding: 0 10px;
-            gap: 5px;
-            z-index: 1000;
-            display: none;
-        }
-
-        .taskbar.active {
-            display: flex;
-        }
-
-        .taskbar-item {
-            background: #c0c0c0;
-            border: 2px solid;
-            border-color: #fff #000 #000 #fff;
-            padding: 5px 15px;
-            font-family: 'MS Sans Serif', Arial, sans-serif;
-            font-size: 11px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .taskbar-item:active {
-            border-color: #000 #fff #fff #000;
-        }
-
-        .title-bar {
-            background: linear-gradient(to right, #000080, #1084d0);
-            padding: 2px;
+            right: 0;
+            height: 28px;
+            background: linear-gradient(to bottom, #e8e8e8, #d0d0d0);
+            border-bottom: 1px solid #999;
             display: flex;
             align-items: center;
             justify-content: space-between;
+            padding: 0 12px;
+            z-index: 10001;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+            font-family: 'Lucida Grande', Arial, sans-serif;
         }
 
-        .title-bar-text {
-            color: white;
-            font-weight: bold;
-            font-size: 11px;
-            padding: 2px 4px;
+        .menu-bar-left {
             display: flex;
             align-items: center;
-            gap: 4px;
+            gap: 15px;
+        }
+
+        .menu-bar-logo {
+            font-size: 18px;
+            cursor: pointer;
+            padding: 2px 8px;
+        }
+
+        .menu-bar-item {
+            font-size: 13px;
+            font-weight: 600;
+            color: #333;
+            cursor: pointer;
+            padding: 4px 10px;
+        }
+
+        .menu-bar-time {
+            font-size: 12px;
+            color: #333;
+            font-family: 'Monaco', monospace;
+        }
+
+        .window {
+            background: linear-gradient(to bottom, #e8e8e8, #d0d0d0);
+            border-radius: 8px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+            width: 600px;
+            font-family: 'Lucida Grande', Arial, sans-serif;
+            border: 1px solid #999;
+            position: absolute;
+            top: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .window.hidden {
+            display: none;
+        }
+
+        .title-bar {
+            background: linear-gradient(to bottom, #b8b8b8, #888888);
+            padding: 8px 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+            border-bottom: 1px solid #666;
+            cursor: default;
+            user-select: none;
         }
 
         .title-bar-controls {
             display: flex;
-            gap: 2px;
-        }
-
-        .title-bar-controls button {
-            width: 16px;
-            height: 14px;
-            background: #c0c0c0;
-            border: 1px solid;
-            border-color: #fff #000 #000 #fff;
-            font-size: 9px;
-            font-weight: bold;
-            cursor: pointer;
-            padding: 0;
-        }
-
-        .title-bar-controls button:active {
-            border-color: #000 #fff #fff #000;
-        }
-
-        .window-body {
-            padding: 8px;
-            background: #c0c0c0;
-        }
-
-        .player-container {
-            background: #fff;
-            border: 2px solid;
-            border-color: #808080 #fff #fff #808080;
-            padding: 0;
-            min-height: 166px;
-        }
-
-        .player-container iframe {
-            display: block;
-            width: 100%;
-            border: none;
-        }
-
-        .controls {
-            margin-top: 8px;
-            padding: 8px;
-            background: #c0c0c0;
-            border: 2px solid;
-            border-color: #fff #808080 #808080 #fff;
-        }
-
-        .input-group {
-            margin-bottom: 8px;
-        }
-
-        .input-label {
-            font-size: 11px;
-            margin-bottom: 2px;
-            display: block;
-        }
-
-        .win95-input {
-            width: 100%;
-            padding: 2px;
-            border: 2px solid;
-            border-color: #808080 #fff #fff #808080;
-            font-family: 'MS Sans Serif', Arial, sans-serif;
-            font-size: 11px;
-            box-sizing: border-box;
-        }
-
-        .win95-button {
-            background: #c0c0c0;
-            border: 2px solid;
-            border-color: #fff #000 #000 #fff;
-            padding: 4px 12px;
-            font-family: 'MS Sans Serif', Arial, sans-serif;
-            font-size: 11px;
-            cursor: pointer;
-            min-width: 80px;
-        }
-
-        .win95-button:active {
-            border-color: #000 #fff #fff #000;
-            padding: 5px 11px 3px 13px;
-        }
-
-        .status-bar {
-            padding: 2px 4px;
-            border-top: 1px solid #808080;
-            font-size: 11px;
-            display: flex;
             gap: 8px;
         }
 
-        .status-item {
-            border: 1px solid;
-            border-color: #808080 #fff #fff #808080;
-            padding: 1px 4px;
+        .mac-button {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: 1px solid rgba(0,0,0,0.3);
+            cursor: pointer;
         }
 
-        .icon {
-            width: 16px;
-            height: 16px;
-            background: #c0c0c0;
-            border: 1px solid #000;
-            display: inline-block;
-            text-align: center;
-            line-height: 16px;
+        .mac-button.close {
+            background: linear-gradient(to bottom, #ff5f52, #e0443e);
         }
 
-        .help-text {
+        .mac-button.minimize {
+            background: linear-gradient(to bottom, #ffbd2e, #e0a32e);
+        }
+
+        .mac-button.maximize {
+            background: linear-gradient(to bottom, #28ca42, #24a73e);
+        }
+
+        .title-bar-text {
+            color: #333;
+            font-weight: 600;
+            font-size: 13px;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .window-body {
+            padding: 12px;
+        }
+
+        .player-container {
+            background: #000;
+            border-radius: 4px;
+            width: 100%;
+            height: 340px;
+            overflow: hidden;
+        }
+
+        .player-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .dock {
+            position: fixed;
+            bottom: 5px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(to bottom, #e8e8e8, #c0c0c0);
+            border: 2px solid #666;
+            border-bottom: none;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+            padding: 8px 20px 6px 20px;
+            display: flex;
+            gap: 8px;
+            z-index: 10000;
+        }
+
+        .dock-item {
+            width: 64px;
+            height: 64px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .dock-item:hover {
+            transform: translateY(-8px);
+        }
+
+        .dock-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(to bottom, #f0f0f0, #d0d0d0);
+            border: 2px solid #888;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+        }
+
+        .dock-indicator {
+            width: 6px;
+            height: 6px;
+            background: #333;
+            position: absolute;
+            bottom: -10px;
+            display: none;
+        }
+
+        .dock-item.active .dock-indicator {
+            display: block;
+        }
+
+        .dock-label {
+            position: absolute;
+            bottom: 80px;
+            background: rgba(0,0,0,0.75);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 6px;
             font-size: 11px;
-            margin-top: 4px;
-            color: #000080;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
         }
 
-        @media (max-width: 768px) {
-            .window {
-                max-width: 100%;
-            }
+        .dock-item:hover .dock-label {
+            opacity: 1;
         }
     </style>
 </head>
 <body>
 
-<!-- Video Background -->
+<div class="menu-bar">
+    <div class="menu-bar-left">
+        <div class="menu-bar-logo">☁️</div>
+        <div class="menu-bar-item">File</div>
+        <div class="menu-bar-item">Edit</div>
+        <div class="menu-bar-item">View</div>
+    </div>
+    <div class="menu-bar-time" id="menuBarTime">Sun 12:00 PM</div>
+</div>
+
 <video class="video-background" autoplay muted loop playsinline>
     <source src="images/backgrounds/clouds.mp4" type="video/mp4">
 </video>
 
-<!-- Burger Menu Button -->
-<div class="burger-menu">
-    <button class="burger-icon" id="burgerBtn">
-        <span></span>
-        <span></span>
-        <span></span>
-    </button>
-</div>
-
-<!-- Navigation Menu -->
-<nav class="nav-menu" id="navMenu">
-    <video class="menu-video-background" autoplay muted loop playsinline>
-        <source src="images/backgrounds/clouds_reverse.mp4" type="video/mp4">
-    </video>
-    
-    <a href="index.html">home</a>
-    <a href="soundcloud.html">music</a>
-    <a href="about.html">about</a>
-</nav>
-
-<!-- Main Content -->
 <div class="content-wrapper">
-    <div class="window">
+    <div class="window" id="youtubeWindow">
         <div class="title-bar">
-            <div class="title-bar-text">
-                <span class="icon">♪</span>
-                SoundCloud Player
-            </div>
             <div class="title-bar-controls">
-                <button id="minimizeBtn">_</button>
-                <button id="maximizeBtn">□</button>
-                <button id="closeBtn">×</button>
+                <div class="mac-button close" onclick="closeWindow('youtube')"></div>
+                <div class="mac-button minimize"></div>
+                <div class="mac-button maximize"></div>
             </div>
+            <div class="title-bar-text">YouTube Player</div>
         </div>
         <div class="window-body">
             <div class="player-container">
-                <iframe id="soundcloudPlayer" 
-                        width="100%" 
-                        height="166" 
-                        scrolling="no" 
-                        frameborder="no" 
-                        allow="autoplay"
-                        src="https://w.soundcloud.com/player/?url=https://soundcloud.com/deliciousramyun/fungus&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true">
-                </iframe>
+                <iframe src="https://www.youtube.com/embed/lF6hv4qAKxI" allowfullscreen></iframe>
             </div>
-            <div class="controls">
-                <div class="input-group">
-                    <label class="input-label">SoundCloud Track URL:</label>
-                    <input type="text" 
-                           id="trackUrl" 
-                           class="win95-input" 
-                           placeholder="https://soundcloud.com/artist/track-name">
-                    <div class="help-text">Paste a SoundCloud track URL above</div>
-                </div>
-                <button class="win95-button" id="loadTrackBtn">Load Track</button>
+        </div>
+    </div>
+
+    <div class="window hidden" id="musicWindow" style="left: calc(50% + 50px); top: 150px;">
+        <div class="title-bar">
+            <div class="title-bar-controls">
+                <div class="mac-button close" onclick="closeWindow('music')"></div>
+                <div class="mac-button minimize"></div>
+                <div class="mac-button maximize"></div>
             </div>
-            <div class="status-bar">
-                <span class="status-item" id="status">Ready</span>
+            <div class="title-bar-text">Music Player</div>
+        </div>
+        <div class="window-body">
+            <div class="player-container">
+                <iframe src="https://w.soundcloud.com/player/?url=https://soundcloud.com/deliciousramyun/fungus&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Footer -->
 <footer class="site-footer">
     <p>© delicious ramyun 2025. Last updated: undefined</p>
 </footer>
 
-<!-- Taskbar for minimized window -->
-<div class="taskbar" id="taskbar">
-    <div class="taskbar-item" id="taskbarItem">
-        <span class="icon">♪</span>
-        SoundCloud Player
+<div class="dock">
+    <div class="dock-item" id="finderIcon">
+        <div class="dock-icon">🖥</div>
+        <div class="dock-indicator"></div>
+        <div class="dock-label">Finder</div>
+    </div>
+    
+    <div class="dock-item active" id="youtubeDock">
+        <div class="dock-icon">▶</div>
+        <div class="dock-indicator"></div>
+        <div class="dock-label">YouTube Player</div>
+    </div>
+    
+    <div class="dock-item" id="musicDock">
+        <div class="dock-icon">🎵</div>
+        <div class="dock-indicator"></div>
+        <div class="dock-label">Music</div>
+    </div>
+    
+    <div class="dock-item">
+        <div class="dock-icon">🖼</div>
+        <div class="dock-indicator"></div>
+        <div class="dock-label">Photos</div>
+    </div>
+    
+    <div class="dock-item">
+        <div class="dock-icon">✉️</div>
+        <div class="dock-indicator"></div>
+        <div class="dock-label">Mail</div>
     </div>
 </div>
 
-<script src="js/menu.js"></script>
 <script>
-    // Window Controls
-    const closeBtn = document.getElementById('closeBtn');
-    const minimizeBtn = document.getElementById('minimizeBtn');
-    const maximizeBtn = document.getElementById('maximizeBtn');
-    const window95 = document.querySelector('.window');
-    const taskbar = document.getElementById('taskbar');
-    const taskbarItem = document.getElementById('taskbarItem');
+    // Update time
+    function updateTime() {
+        const now = new Date();
+        const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+        const day = days[now.getDay()];
+        let hours = now.getHours();
+        const minutes = now.getMinutes();
+        const ampm = hours >= 12 ? 'PM' : 'AM';
+        hours = hours % 12 || 12;
+        const mins = minutes < 10 ? '0' + minutes : minutes;
+        document.getElementById('menuBarTime').textContent = `${day} ${hours}:${mins} ${ampm}`;
+    }
+    updateTime();
+    setInterval(updateTime, 1000);
 
-    let isMaximized = false;
+    // Window management
+    const musicDock = document.getElementById('musicDock');
+    const musicWindow = document.getElementById('musicWindow');
+    const youtubeDock = document.getElementById('youtubeDock');
+    const youtubeWindow = document.getElementById('youtubeWindow');
 
-    // Close window
-    closeBtn.addEventListener('click', () => {
-        window95.classList.add('closed');
-        taskbar.classList.remove('active');
+    musicDock.addEventListener('click', function() {
+        console.log('Music clicked!'); // Debug
+        musicWindow.classList.remove('hidden');
+        musicDock.classList.add('active');
     });
 
-    // Minimize window
-    minimizeBtn.addEventListener('click', () => {
-        window95.classList.add('minimized');
-        taskbar.classList.add('active');
+    youtubeDock.addEventListener('click', function() {
+        youtubeWindow.classList.remove('hidden');
+        youtubeDock.classList.add('active');
     });
 
-    // Maximize/Restore window
-    maximizeBtn.addEventListener('click', () => {
-        if (isMaximized) {
-            window95.classList.remove('maximized');
-            isMaximized = false;
-        } else {
-            window95.classList.add('maximized');
-            window95.classList.remove('minimized');
-            isMaximized = true;
+    function closeWindow(type) {
+        if (type === 'music') {
+            musicWindow.classList.add('hidden');
+            musicDock.classList.remove('active');
+        } else if (type === 'youtube') {
+            youtubeWindow.classList.add('hidden');
+            youtubeDock.classList.remove('active');
         }
-    });
-
-    // Restore from taskbar
-    taskbarItem.addEventListener('click', () => {
-        window95.classList.remove('minimized');
-        taskbar.classList.remove('active');
-    });
-
-    // SoundCloud Player Functionality
-    const loadTrackBtn = document.getElementById('loadTrackBtn');
-    const trackUrlInput = document.getElementById('trackUrl');
-    const statusElement = document.getElementById('status');
-    const playerIframe = document.getElementById('soundcloudPlayer');
-
-    function loadTrack() {
-        const url = trackUrlInput.value.trim();
-        
-        if (!url) {
-            statusElement.textContent = 'Please enter a URL';
-            return;
-        }
-        
-        if (!url.includes('soundcloud.com')) {
-            statusElement.textContent = 'Invalid SoundCloud URL';
-            return;
-        }
-        
-        const encodedUrl = encodeURIComponent(url);
-        const embedUrl = `https://w.soundcloud.com/player/?url=${encodedUrl}&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true`;
-        
-        playerIframe.src = embedUrl;
-        statusElement.textContent = 'Track loaded';
     }
 
-    loadTrackBtn.addEventListener('click', loadTrack);
-    
-    trackUrlInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') {
-            loadTrack();
+    // Make windows draggable
+    function makeDraggable(element) {
+        let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+        const titleBar = element.querySelector('.title-bar');
+        
+        titleBar.onmousedown = dragMouseDown;
+
+        function dragMouseDown(e) {
+            if (e.target.classList.contains('mac-button')) return;
+            e.preventDefault();
+            pos3 = e.clientX;
+            pos4 = e.clientY;
+            document.onmouseup = closeDragElement;
+            document.onmousemove = elementDrag;
         }
-    });
+
+        function elementDrag(e) {
+            e.preventDefault();
+            pos1 = pos3 - e.clientX;
+            pos2 = pos4 - e.clientY;
+            pos3 = e.clientX;
+            pos4 = e.clientY;
+            element.style.top = (element.offsetTop - pos2) + "px";
+            element.style.left = (element.offsetLeft - pos1) + "px";
+            element.style.transform = 'none';
+        }
+
+        function closeDragElement() {
+            document.onmouseup = null;
+            document.onmousemove = null;
+        }
+    }
+
+    makeDraggable(youtubeWindow);
+    makeDraggable(musicWindow);
 </script>
 
 </body>
