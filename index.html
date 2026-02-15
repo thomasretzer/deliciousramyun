@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Head in the clouds - Videos</title>
     <link rel="icon" href="images/favicon/favicon32.ico" type="image/x-icon">
     <link rel="stylesheet" href="css/style.css">
@@ -13,6 +13,17 @@
             overflow: hidden;
             height: 100vh;
             width: 100vw;
+            position: fixed;
+            touch-action: pan-y;
+        }
+
+        /* ==================== DESKTOP LAYOUT ==================== */
+        .desktop-layout {
+            display: block;
+        }
+
+        .mobile-layout {
+            display: none;
         }
 
         .content-wrapper {
@@ -439,7 +450,6 @@
             opacity: 1;
         }
 
-        /* Smaller photo and video windows positioned in upper corners */
         #photosWindow {
             width: auto;
             max-width: none;
@@ -486,131 +496,1137 @@
             border-radius: 0 0 8px 8px;
         }
 
+        /* ==================== MOBILE LAYOUT (iPhone 3GS Style) ==================== */
+        .mobile-phone {
+            width: 100%;
+            height: 100vh;
+            background: #000;
+            position: relative;
+            overflow: hidden;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            touch-action: manipulation;
+        }
+
+        .mobile-layout {
+            display: none;
+            width: 100%;
+            height: 100vh;
+            background: #000;
+        }
+
+        .mobile-status-bar {
+            height: 44px;
+            background: linear-gradient(to bottom, 
+                        rgba(40,40,40,0.98) 0%, 
+                        rgba(20,20,20,0.95) 50%,
+                        rgba(10,10,10,0.92) 100%);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 12px;
+            color: white;
+            font-size: 13px;
+            font-weight: 600;
+            position: relative;
+            z-index: 1000;
+            backdrop-filter: blur(25px) saturate(150%);
+            -webkit-backdrop-filter: blur(25px) saturate(150%);
+            box-shadow: 
+                0 1px 0 rgba(255,255,255,0.15) inset,
+                0 2px 8px rgba(0,0,0,0.6),
+                0 0 20px rgba(0,0,0,0.3);
+            border-bottom: 1px solid rgba(0,0,0,0.5);
+        }
+
+        .mobile-status-bar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(to right,
+                        rgba(255,255,255,0) 0%,
+                        rgba(255,255,255,0.2) 50%,
+                        rgba(255,255,255,0) 100%);
+        }
+
+        .mobile-status-left {
+            display: flex;
+            gap: 6px;
+            align-items: center;
+            flex: 1;
+        }
+
+        .mobile-status-center {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .mobile-status-right {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            justify-content: flex-end;
+            flex: 1;
+        }
+
+        .battery-indicator {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 13px;
+        }
+
+        .battery-icon {
+            width: 24px;
+            height: 11px;
+            border: 1.5px solid rgba(255,255,255,0.8);
+            border-radius: 2px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            padding: 1px;
+            background: linear-gradient(to bottom,
+                        rgba(255,255,255,0.1),
+                        rgba(0,0,0,0.2));
+            box-shadow: 
+                0 1px 2px rgba(0,0,0,0.5),
+                0 1px 0 rgba(255,255,255,0.2) inset;
+        }
+
+        .battery-icon::after {
+            content: '';
+            position: absolute;
+            right: -4px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 2px;
+            height: 5px;
+            background: linear-gradient(to bottom,
+                        rgba(255,255,255,0.9),
+                        rgba(200,200,200,1));
+            border-radius: 0 1px 1px 0;
+            box-shadow: 
+                0 1px 1px rgba(0,0,0,0.4),
+                0 1px 0 rgba(255,255,255,0.3) inset;
+        }
+
+        .battery-fill {
+            height: 100%;
+            background: linear-gradient(to bottom,
+                        rgba(255,255,255,1) 0%,
+                        rgba(230,230,230,1) 50%,
+                        rgba(200,200,200,1) 100%);
+            border-radius: 1px;
+            transition: width 0.3s;
+            position: relative;
+            box-shadow: 
+                0 1px 0 rgba(255,255,255,0.5) inset,
+                0 -1px 0 rgba(0,0,0,0.2) inset;
+        }
+
+        .mobile-wallpaper {
+            position: absolute;
+            top: 44px;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding-bottom: 110px;
+            -webkit-overflow-scrolling: touch;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .mobile-video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+            z-index: 0;
+        }
+
+        .mobile-time-widget {
+            display: none;
+        }
+
+        .mobile-time {
+            font-size: 64px;
+            font-weight: 200;
+            line-height: 1;
+            margin-bottom: 5px;
+        }
+
+        .mobile-date {
+            font-size: 16px;
+            font-weight: 400;
+            opacity: 0.9;
+        }
+
+        .mobile-apps-container {
+            padding: 30px 15px 0;
+            position: relative;
+            z-index: 1;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+        }
+
+        .mobile-app-page {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0;
+            margin-bottom: 0;
+            justify-items: center;
+            align-items: center;
+            width: 100%;
+        }
+
+        .mobile-app {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+            padding: 15px 5px;
+            width: 100%;
+        }
+
+        .mobile-app-icon {
+            width: 62px;
+            height: 62px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            box-shadow: 
+                0 1px 0 rgba(255,255,255,0.6) inset,
+                0 -1px 0 rgba(0,0,0,0.3) inset,
+                0 6px 12px rgba(0,0,0,0.6),
+                0 2px 4px rgba(0,0,0,0.4),
+                0 0 20px rgba(255,255,255,0.1);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.1s;
+            border: 1px solid rgba(0,0,0,0.4);
+        }
+
+        .mobile-app:active .mobile-app-icon {
+            transform: scale(0.9);
+            box-shadow: 
+                0 1px 0 rgba(255,255,255,0.4) inset,
+                0 -1px 0 rgba(0,0,0,0.4) inset,
+                0 3px 6px rgba(0,0,0,0.7),
+                0 1px 2px rgba(0,0,0,0.5);
+        }
+
+        .mobile-app-icon::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            height: 60%;
+            background: linear-gradient(to bottom, 
+                        rgba(255,255,255,0.8) 0%, 
+                        rgba(255,255,255,0.4) 40%,
+                        rgba(255,255,255,0.1) 70%,
+                        rgba(255,255,255,0) 100%);
+            border-radius: 14px 14px 60% 60%;
+            pointer-events: none;
+        }
+
+        .mobile-app-icon::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: -2px;
+            right: -2px;
+            height: 35%;
+            background: linear-gradient(to top, 
+                        rgba(0,0,0,0.4) 0%, 
+                        rgba(0,0,0,0.1) 50%,
+                        rgba(0,0,0,0) 100%);
+            border-radius: 0 0 14px 14px;
+            pointer-events: none;
+        }
+
+        .mobile-app-label {
+            color: white;
+            font-size: 11px;
+            text-align: center;
+            text-shadow: 
+                0 1px 2px rgba(0,0,0,0.8),
+                0 0 3px rgba(0,0,0,0.6);
+            max-width: 70px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+        }
+
+        /* App-specific colors */
+        .app-media { background: linear-gradient(135deg, #ff6b6b, #ee5a6f) !important; }
+        .app-music { background: linear-gradient(135deg, #f093fb, #f5576c) !important; }
+        .app-photos { background: linear-gradient(135deg, #4facfe, #00f2fe) !important; }
+        .app-mail { background: linear-gradient(135deg, #43e97b, #38f9d7) !important; }
+        .app-notes { background: linear-gradient(135deg, #ffeaa7, #fdcb6e) !important; }
+        .app-finder { background: linear-gradient(135deg, #a8edea, #fed6e3) !important; }
+        .app-settings { background: linear-gradient(135deg, #d299c2, #fef9d7) !important; }
+        .app-about { background: linear-gradient(135deg, #30cfd0, #330867) !important; }
+
+        .mobile-dock-container {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 100px;
+            background: linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,0.4));
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            pointer-events: none;
+            z-index: 10000;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .mobile-dock-container.hidden {
+            opacity: 0;
+            transform: translateY(100px);
+            pointer-events: none;
+        }
+
+        .mobile-dock {
+            background: linear-gradient(to bottom, 
+                        rgba(255,255,255,0.55) 0%,
+                        rgba(255,255,255,0.35) 50%,
+                        rgba(255,255,255,0.25) 100%);
+            backdrop-filter: blur(40px) saturate(180%);
+            -webkit-backdrop-filter: blur(40px) saturate(180%);
+            border-radius: 24px;
+            padding: 10px 15px;
+            display: flex;
+            gap: 0;
+            justify-content: space-evenly;
+            box-shadow: 
+                0 12px 32px rgba(0,0,0,0.5),
+                0 4px 8px rgba(0,0,0,0.3),
+                0 2px 0 rgba(255,255,255,0.7) inset,
+                0 -2px 0 rgba(0,0,0,0.3) inset,
+                0 0 40px rgba(255,255,255,0.2);
+            pointer-events: all;
+            width: 90%;
+            max-width: 500px;
+            border: 2px solid rgba(255,255,255,0.6);
+            border-bottom: 1px solid rgba(255,255,255,0.3);
+            position: relative;
+        }
+
+        .mobile-dock::before {
+            content: '';
+            position: absolute;
+            top: 1px;
+            left: 4px;
+            right: 4px;
+            height: 50%;
+            background: linear-gradient(to bottom,
+                        rgba(255,255,255,0.6) 0%,
+                        rgba(255,255,255,0.3) 50%,
+                        rgba(255,255,255,0) 100%);
+            border-radius: 22px 22px 50% 50%;
+            pointer-events: none;
+        }
+
+        .mobile-dock::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60%;
+            height: 2px;
+            background: linear-gradient(to right,
+                        rgba(255,255,255,0) 0%,
+                        rgba(255,255,255,0.9) 50%,
+                        rgba(255,255,255,0) 100%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .mobile-home-button {
+            position: fixed;
+            bottom: 110px;
+            right: 15px;
+            left: auto;
+            transform: none;
+            width: 58px;
+            height: 58px;
+            background: linear-gradient(to bottom, 
+                        #ffffff 0%,
+                        #f5f5f5 30%,
+                        #e0e0e0 60%,
+                        #c8c8c8 100%);
+            border: 3px solid #777;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10002;
+            box-shadow: 
+                0 8px 20px rgba(0,0,0,0.6),
+                0 3px 6px rgba(0,0,0,0.4),
+                0 2px 0 rgba(255,255,255,1) inset,
+                0 -3px 4px rgba(0,0,0,0.4) inset,
+                0 0 30px rgba(255,255,255,0.3);
+            pointer-events: auto;
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
+            transition: bottom 0.3s ease, right 0s;
+        }
+
+        .mobile-home-button::after {
+            content: '';
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            right: 3px;
+            height: 50%;
+            background: linear-gradient(to bottom,
+                        rgba(255,255,255,0.9) 0%,
+                        rgba(255,255,255,0.3) 60%,
+                        rgba(255,255,255,0) 100%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .mobile-home-button.moved-down {
+            bottom: 15px;
+        }
+
+        .mobile-home-button::before {
+            content: '';
+            width: 32px;
+            height: 32px;
+            border: 2px solid rgba(0,0,0,0.2);
+            border-radius: 6px;
+            box-shadow: 
+                0 2px 4px rgba(0,0,0,0.4),
+                0 1px 0 rgba(255,255,255,0.5) inset,
+                0 -1px 0 rgba(0,0,0,0.2) inset;
+            background: linear-gradient(to bottom,
+                        rgba(255,255,255,0.2) 0%,
+                        rgba(0,0,0,0.05) 100%);
+            position: relative;
+            z-index: 1;
+        }
+
+        .mobile-home-button:active {
+            box-shadow: 
+                0 4px 10px rgba(0,0,0,0.7),
+                0 2px 3px rgba(0,0,0,0.5),
+                0 1px 0 rgba(255,255,255,0.6) inset,
+                0 3px 6px rgba(0,0,0,0.5) inset;
+            background: linear-gradient(to bottom, 
+                        #e8e8e8 0%,
+                        #d8d8d8 30%,
+                        #c0c0c0 60%,
+                        #b0b0b0 100%);
+        }
+
+        /* Mobile App Modal */
+        .mobile-app-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+            height: 100vh;
+            background: #000;
+            z-index: 2000;
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .mobile-app-modal.active {
+            display: flex;
+        }
+
+        .mobile-modal-header {
+            height: 44px;
+            background: linear-gradient(to bottom, #f7f7f7, #e0e0e0);
+            border-bottom: 1px solid #999;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 10px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+        }
+
+        .mobile-modal-close {
+            padding: 6px 12px;
+            background: linear-gradient(to bottom, #5a9dfb, #3b7bd8);
+            color: white;
+            border: 1px solid #2a5fa8;
+            border-radius: 5px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+        }
+
+        .mobile-modal-close:active {
+            background: linear-gradient(to bottom, #3b7bd8, #5a9dfb);
+        }
+
+        .mobile-modal-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .mobile-modal-content {
+            flex: 1;
+            overflow-y: auto;
+            overflow-x: hidden;
+            background: #fff;
+            position: relative;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* Responsive breakpoint */
         @media (max-width: 768px) {
-            .window {
-                max-width: 100%;
+            .desktop-layout {
+                display: none;
             }
             
-            .video-container, .player-container {
-                height: 300px;
-            }
-
-            #photosWindow, #videoWindow2 {
-                width: 90% !important;
-                max-width: 90% !important;
+            .mobile-layout {
+                display: block;
             }
         }
     </style>
 </head>
 <body>
 
-<div class="menu-bar">
-    <div class="menu-bar-left">
-        <div class="menu-bar-logo">☁️</div>
-        <div class="menu-bar-item">File</div>
-        <div class="menu-bar-item">Edit</div>
-        <div class="menu-bar-item">View</div>
-        <div class="menu-bar-item">Window</div>
-        <div class="menu-bar-item">Help</div>
+<!-- ==================== DESKTOP LAYOUT ==================== -->
+<div class="desktop-layout">
+    <div class="menu-bar">
+        <div class="menu-bar-left">
+            <div class="menu-bar-logo">☁️</div>
+            <div class="menu-bar-item">File</div>
+            <div class="menu-bar-item">Edit</div>
+            <div class="menu-bar-item">View</div>
+            <div class="menu-bar-item">Window</div>
+            <div class="menu-bar-item">Help</div>
+        </div>
+        <div class="menu-bar-right">
+            <div class="menu-bar-time" id="menuBarTime">Sun 12:00 PM</div>
+        </div>
     </div>
-    <div class="menu-bar-right">
-        <div class="menu-bar-time" id="menuBarTime">Sun 12:00 PM</div>
+
+    <video class="video-background" autoplay muted loop playsinline>
+        <source src="images/backgrounds/clouds.mp4" type="video/mp4">
+    </video>
+
+    <div class="content-wrapper">
+        <!-- YouTube Player Window -->
+        <div class="window" id="youtubeWindow">
+            <div class="title-bar" data-window="youtube">
+                <div class="title-bar-controls">
+                    <div class="mac-button close" onclick="handleWindowAction('youtube', 'close')"></div>
+                    <div class="mac-button minimize" onclick="handleWindowAction('youtube', 'minimize')"></div>
+                    <div class="mac-button maximize" onclick="handleWindowAction('youtube', 'maximize')"></div>
+                </div>
+                <div class="title-bar-text">Media Player</div>
+                <div style="width: 60px;"></div>
+            </div>
+            <div class="window-body">
+                <div class="video-container">
+                    <iframe id="youtubePlayer" 
+                            src="https://www.youtube.com/embed/lF6hv4qAKxI?enablejsapi=1&autoplay=0&rel=0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                    </iframe>
+                </div>
+                <div class="controls">
+                    <div class="media-controls">
+                        <button class="control-btn" id="ytRewindBtn">⏪</button>
+                        <button class="control-btn" id="ytPlayBtn">▶</button>
+                        <button class="control-btn" id="ytPauseBtn">⏸</button>
+                        <button class="control-btn" id="ytStopBtn">⏹</button>
+                        <button class="control-btn" id="ytForwardBtn">⏩</button>
+                    </div>
+                    
+                    <div class="progress-container">
+                        <div class="progress-bar" id="ytProgressBar">
+                            <div class="progress-fill" id="ytProgressFill"></div>
+                        </div>
+                        <div class="time-display" id="ytTimeDisplay">0:00 / 0:00</div>
+                    </div>
+                    
+                    <div class="volume-container">
+                        <span class="volume-label">🔊</span>
+                        <div class="volume-slider" id="ytVolumeSlider">
+                            <div class="volume-fill" id="ytVolumeFill"></div>
+                        </div>
+                        <span class="volume-label" id="ytVolumePercent">50%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SoundCloud Player Window -->
+        <div class="window closed" id="musicWindow" style="left: 50px; top: 50px;">
+            <div class="title-bar" data-window="music">
+                <div class="title-bar-controls">
+                    <div class="mac-button close" onclick="handleWindowAction('music', 'close')"></div>
+                    <div class="mac-button minimize" onclick="handleWindowAction('music', 'minimize')"></div>
+                    <div class="mac-button maximize" onclick="handleWindowAction('music', 'maximize')"></div>
+                </div>
+                <div class="title-bar-text">Music Player</div>
+                <div style="width: 60px;"></div>
+            </div>
+            <div class="window-body">
+                <div class="player-container">
+                    <iframe scrolling="no" 
+                            allow="autoplay"
+                            src="https://w.soundcloud.com/player/?url=https://soundcloud.com/deliciousramyun/fungus&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+
+        <!-- About Window -->
+        <div class="window closed" id="aboutWindow" style="width: 350px; max-width: 350px; left: 50%; top: 100px; transform: translateX(-50%);">
+            <div class="title-bar" data-window="about">
+                <div class="title-bar-controls">
+                    <div class="mac-button close" onclick="handleWindowAction('about', 'close')"></div>
+                    <div class="mac-button minimize" style="opacity: 0.3; cursor: default;"></div>
+                    <div class="mac-button maximize" style="opacity: 0.3; cursor: default;"></div>
+                </div>
+                <div class="title-bar-text">About</div>
+                <div style="width: 60px;"></div>
+            </div>
+            <div class="window-body" style="padding: 10px 20px; text-align: center; max-width: 350px; overflow: hidden;">
+                <img src="images/logo/dramyun_logo.gif" alt="Logo" style="width: 400px; height: auto; margin-bottom: 5px; display: block; margin-left: 50%; transform: translateX(-50%);">
+                
+                <h2 style="margin: 0 0 5px 0; font-size: 18px; color: #333;">Head in the Clouds</h2>
+                <p style="margin: 5px 0; font-size: 12px; color: #666;">Version 1.0</p>
+                <p style="margin: 20px 0 10px 0; font-size: 11px; color: #666; line-height: 1.6;">
+                    1. (figurative) Distracted or disconnected from reality<br>
+                    2. (figurative) Having fantastic or impractical dreams
+                </p>
+                <p style="margin: 15px 0 5px 0; font-size: 11px; color: #666;">Started in 2020</p>
+                <p style="margin: 5px 0; font-size: 10px; color: #999;">© delicious ramyun 2025</p>
+            </div>
+        </div>
+
+        <!-- Photos/Image Viewer Window -->
+        <div class="window closed" id="photosWindow">
+            <div class="title-bar" data-window="photos">
+                <div class="title-bar-controls">
+                    <div class="mac-button close" onclick="handleWindowAction('photos', 'close')"></div>
+                    <div class="mac-button minimize" onclick="handleWindowAction('photos', 'minimize')"></div>
+                    <div class="mac-button maximize" onclick="handleWindowAction('photos', 'maximize')"></div>
+                </div>
+                <div class="title-bar-text">me.jpg</div>
+                <div style="width: 60px;"></div>
+            </div>
+            <div class="window-body">
+                <div class="player-container" style="background: #000; display: flex; align-items: center; justify-content: center;">
+                    <img id="photoDisplay" src="images/about/me.jpg" alt="Photo">
+                </div>
+            </div>
+        </div>
+
+        <!-- Second Video Player Window -->
+        <div class="window closed" id="videoWindow2">
+            <div class="title-bar" data-window="video2">
+                <div class="title-bar-controls">
+                    <div class="mac-button close" onclick="handleWindowAction('video2', 'close')"></div>
+                    <div class="mac-button minimize" onclick="handleWindowAction('video2', 'minimize')"></div>
+                    <div class="mac-button maximize" onclick="handleWindowAction('video2', 'maximize')"></div>
+                </div>
+                <div class="title-bar-text">fish.mp4</div>
+                <div style="width: 60px;"></div>
+            </div>
+            <div class="window-body">
+                <div class="video-container" style="background: #000;">
+                    <video id="mp4Video" autoplay muted loop playsinline style="display: block; width: 100%; height: auto;">
+                        <source src="images/about/fish.mp4" type="video/mp4">
+                    </video>
+                </div>
+            </div>
+        </div>
+
+        <!-- Notes Window -->
+        <div class="window closed" id="notesWindow" style="width: auto; max-width: 280px;">
+            <div class="title-bar" data-window="notes">
+                <div class="title-bar-controls">
+                    <div class="mac-button close" onclick="handleWindowAction('notes', 'close')"></div>
+                    <div class="mac-button minimize" onclick="handleWindowAction('notes', 'minimize')"></div>
+                    <div class="mac-button maximize" onclick="handleWindowAction('notes', 'maximize')"></div>
+                </div>
+                <div class="title-bar-text" style="padding-left: 20px;">Notes</div>
+                <div style="width: 60px;"></div>
+            </div>
+            <div class="window-body" style="padding: 20px; background: #fffbcc;">
+                <div style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 14px; color: #333; line-height: 1.6;">
+                    <strong style="font-size: 15px;">goals for today:</strong><br>
+                    <div style="margin-top: 8px;">
+                        • make lofi<br>
+                        • eat good food<br>
+                        • be happy
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="site-footer">
+        <p>© delicious ramyun 2025. Last updated: undefined</p>
+    </footer>
+
+    <div class="dock">
+        <div class="dock-item">
+            <div class="dock-icon">🖥</div>
+            <div class="dock-indicator"></div>
+            <div class="dock-label">Finder</div>
+        </div>
+        
+        <div class="dock-item active" id="youtubeDock">
+            <div class="dock-icon">💿</div>
+            <div class="dock-indicator"></div>
+            <div class="dock-label">Media Player</div>
+        </div>
+        
+        <div class="dock-item" id="musicDock">
+            <div class="dock-icon">🎵</div>
+            <div class="dock-indicator"></div>
+            <div class="dock-label">Music</div>
+        </div>
+        
+        <div class="dock-item" id="photosIcon">
+            <div class="dock-icon">📷</div>
+            <div class="dock-indicator"></div>
+            <div class="dock-label">Photos</div>
+        </div>
+
+        <div class="dock-item" id="mailIcon">
+            <div class="dock-icon">💌</div>
+            <div class="dock-indicator"></div>
+            <div class="dock-label">Mail</div>
+        </div>
+        
+        <div class="dock-item" id="notesIcon">
+            <div class="dock-icon">✏️</div>
+            <div class="dock-indicator"></div>
+            <div class="dock-label">Notes</div>
+        </div>
+        
+        <div class="dock-item">
+            <div class="dock-icon">⚙️</div>
+            <div class="dock-indicator"></div>
+            <div class="dock-label">System Preferences</div>
+        </div>
+        
+        <div class="dock-item" id="trashIcon">
+            <div class="dock-icon">🗑</div>
+            <div class="dock-indicator"></div>
+            <div class="dock-label">Trash</div>
+        </div>
     </div>
 </div>
 
-<video class="video-background" autoplay muted loop playsinline>
-    <source src="images/backgrounds/clouds.mp4" type="video/mp4">
-</video>
-
-<div class="content-wrapper">
-    <!-- YouTube Player Window -->
-    <div class="window" id="youtubeWindow">
-        <div class="title-bar" data-window="youtube">
-            <div class="title-bar-controls">
-                <div class="mac-button close" onclick="handleWindowAction('youtube', 'close')"></div>
-                <div class="mac-button minimize" onclick="handleWindowAction('youtube', 'minimize')"></div>
-                <div class="mac-button maximize" onclick="handleWindowAction('youtube', 'maximize')"></div>
+<!-- ==================== MOBILE LAYOUT (iPhone 3GS Style) ==================== -->
+<div class="mobile-layout">
+    <div class="mobile-phone">
+        <!-- Status Bar -->
+        <div class="mobile-status-bar">
+            <div class="mobile-status-left">
+                <span>🌍 🌎 🌏</span>
+                <span>Cloud Connect</span>
             </div>
-            <div class="title-bar-text">Media Player</div>
-            <div style="width: 60px;"></div>
+            <div class="mobile-status-center">
+                <span id="mobileStatusTime">12:00 PM</span>
+            </div>
+            <div class="mobile-status-right">
+                <div class="battery-indicator">
+                    <span id="mobileBatteryPercent">100%</span>
+                    <div class="battery-icon">
+                        <div class="battery-fill" id="mobileBatteryFill" style="width: 100%;"></div>
+                        <span id="mobileChargingIcon" style="display: none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 8px;">⚡</span>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="window-body">
-            <div class="video-container">
-                <iframe id="youtubePlayer" 
-                        src="https://www.youtube.com/embed/lF6hv4qAKxI?enablejsapi=1&autoplay=0&rel=0"
+
+        <!-- Video Background for Mobile -->
+        <video class="mobile-video-background" autoplay muted loop playsinline>
+            <source src="images/backgrounds/clouds.mp4" type="video/mp4">
+        </video>
+
+        <!-- Wallpaper with Apps -->
+        <div class="mobile-wallpaper">
+            <!-- Time Widget -->
+            <div class="mobile-time-widget">
+                <div class="mobile-time" id="mobileTime">12:00</div>
+                <div class="mobile-date" id="mobileDate">Sunday, February 14</div>
+            </div>
+
+            <!-- Apps Grid -->
+            <div class="mobile-apps-container">
+                <div class="mobile-app-page">
+                    <div class="mobile-app" data-app="about">
+                        <div class="mobile-app-icon app-about">☁️</div>
+                        <div class="mobile-app-label">About</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dock -->
+        <div class="mobile-dock-container">
+            <div class="mobile-dock">
+                <div class="mobile-app" data-app="media" style="padding: 10px;">
+                    <div class="mobile-app-icon app-media" style="width: 54px; height: 54px; font-size: 32px;">📺</div>
+                </div>
+                <div class="mobile-app" data-app="music" style="padding: 10px;">
+                    <div class="mobile-app-icon app-music" style="width: 54px; height: 54px; font-size: 32px;">🎵</div>
+                </div>
+                <div class="mobile-app" data-app="photos" style="padding: 10px;">
+                    <div class="mobile-app-icon app-photos" style="width: 54px; height: 54px; font-size: 32px;">🌻</div>
+                </div>
+                <div class="mobile-app" data-app="mail" style="padding: 10px;">
+                    <div class="mobile-app-icon app-mail" style="width: 54px; height: 54px; font-size: 32px;">💌</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Home Indicator -->
+        <div class="mobile-home-button" onclick="closeAllModals()"></div>
+    </div>
+
+    <!-- App Modals -->
+    <div class="mobile-app-modal" id="mobileModalMedia">
+        <div class="mobile-status-bar">
+            <div class="mobile-status-left">
+                <span>🌍 🌎 🌏</span>
+                <span>Cloud Connect</span>
+            </div>
+            <div class="mobile-status-center">
+                <span id="mobileModalStatusTime1">12:00 PM</span>
+            </div>
+            <div class="mobile-status-right">
+                <div class="battery-indicator">
+                    <span id="modalBatteryPercent1">100%</span>
+                    <div class="battery-icon">
+                        <div class="battery-fill" style="width: 100%;"></div>
+                        <span class="modal-charging-icon" style="display: none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 8px;">⚡</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mobile-modal-content" style="background: #f9f9f9; color: #0f0f0f; overflow-y: auto;">
+            <!-- Video Player -->
+            <div style="width: 100%; background: #000; position: relative;">
+                <iframe id="mobileYoutubePlayer" 
+                        src="https://www.youtube.com/embed/lF6hv4qAKxI?enablejsapi=1&autoplay=0&rel=1"
+                        style="width: 100%; height: 250px; border: none;"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                         allowfullscreen>
                 </iframe>
             </div>
-            <div class="controls">
-                <div class="media-controls">
-                    <button class="control-btn" id="ytRewindBtn">⏪</button>
-                    <button class="control-btn" id="ytPlayBtn">▶</button>
-                    <button class="control-btn" id="ytPauseBtn">⏸</button>
-                    <button class="control-btn" id="ytStopBtn">⏹</button>
-                    <button class="control-btn" id="ytForwardBtn">⏩</button>
-                </div>
-                
-                <div class="progress-container">
-                    <div class="progress-bar" id="ytProgressBar">
-                        <div class="progress-fill" id="ytProgressFill"></div>
-                    </div>
-                    <div class="time-display" id="ytTimeDisplay">0:00 / 0:00</div>
-                </div>
-                
-                <div class="volume-container">
-                    <span class="volume-label">🔊</span>
-                    <div class="volume-slider" id="ytVolumeSlider">
-                        <div class="volume-fill" id="ytVolumeFill"></div>
-                    </div>
-                    <span class="volume-label" id="ytVolumePercent">50%</span>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- SoundCloud Player Window -->
-    <div class="window closed" id="musicWindow" style="left: 50px; top: 50px;">
-        <div class="title-bar" data-window="music">
-            <div class="title-bar-controls">
-                <div class="mac-button close" onclick="handleWindowAction('music', 'close')"></div>
-                <div class="mac-button minimize" onclick="handleWindowAction('music', 'minimize')"></div>
-                <div class="mac-button maximize" onclick="handleWindowAction('music', 'maximize')"></div>
-            </div>
-            <div class="title-bar-text">Music Player</div>
-            <div style="width: 60px;"></div>
-        </div>
-        <div class="window-body">
-            <div class="player-container">
-                <iframe scrolling="no" 
-                        allow="autoplay"
-                        src="https://w.soundcloud.com/player/?url=https://soundcloud.com/deliciousramyun/fungus&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true">
-                </iframe>
-            </div>
-        </div>
-    </div>
-
-    <!-- About Window -->
-    <div class="window closed" id="aboutWindow" style="width: 350px; max-width: 350px; left: 50%; top: 100px; transform: translateX(-50%);">
-        <div class="title-bar" data-window="about">
-            <div class="title-bar-controls">
-                <div class="mac-button close" onclick="handleWindowAction('about', 'close')"></div>
-                <div class="mac-button minimize" style="opacity: 0.3; cursor: default;"></div>
-                <div class="mac-button maximize" style="opacity: 0.3; cursor: default;"></div>
-            </div>
-            <div class="title-bar-text">About</div>
-            <div style="width: 60px;"></div>
-        </div>
-        <div class="window-body" style="padding: 10px 20px; text-align: center; max-width: 350px; overflow: hidden;">
-            <!-- 
-                TO CHANGE THE GIF: Replace src with your GIF file path
-                TO CHANGE SIZE: Adjust the width value (height is auto to maintain aspect ratio)
-            -->
-            <img src="images/logo/dramyun_logo.gif" alt="Logo" style="width: 400px; height: auto; margin-bottom: 5px; display: block; margin-left: 50%; transform: translateX(-50%);">
             
+            <!-- Video Info Section -->
+            <div style="padding: 12px; background: #fff;">
+                <div id="videoTitle" style="font-size: 15px; font-weight: 600; margin-bottom: 12px; line-height: 1.4; color: #0f0f0f;">
+                    Loading video info...
+                </div>
+                
+                <!-- Channel Info -->
+                <div style="display: flex; align-items: center; gap: 12px; padding: 12px 0; border-top: 1px solid #e5e5e5; border-bottom: 1px solid #e5e5e5;">
+                    <div id="channelAvatar" style="width: 40px; height: 40px; border-radius: 50%; overflow: hidden; flex-shrink: 0;">
+                        <img src="images/logo/dramyun_logo.gif" alt="Channel Avatar" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    <div style="flex: 1;">
+                        <div id="channelName" style="font-size: 14px; font-weight: 600; color: #0f0f0f;">delicious ramyun</div>
+                        <div id="subscriberCount" style="font-size: 12px; color: #606060;">— subscribers</div>
+                    </div>
+                    <button onclick="window.open('https://www.youtube.com/@deliciousramyun5980', '_blank')" style="background: #cc0000; color: white; border: none; padding: 10px 16px; border-radius: 18px; font-size: 14px; font-weight: 500; cursor: pointer;">
+                        Subscribe
+                    </button>
+                </div>
+                
+                <!-- Description -->
+                <div style="margin-top: 12px;">
+                    <div id="videoDescription" style="font-size: 13px; color: #0f0f0f; line-height: 1.5; max-height: 60px; overflow: hidden;">
+                        Loading description...
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Related Videos Section -->
+            <div style="padding: 12px; background: #f9f9f9;">
+                <div style="font-size: 14px; font-weight: 600; margin-bottom: 12px; color: #0f0f0f;">More from this channel</div>
+                <div id="relatedVideos" style="display: flex; flex-direction: column; gap: 10px;">
+                    <div style="text-align: center; padding: 20px; color: #606060; font-size: 12px;">
+                        Loading suggestions...
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mobile-app-modal" id="mobileModalMusic">
+        <div class="mobile-status-bar">
+            <div class="mobile-status-left">
+                <span>🌍 🌎 🌏</span>
+                <span>Cloud Connect</span>
+            </div>
+            <div class="mobile-status-center">
+                <span id="mobileModalStatusTime2">12:00 PM</span>
+            </div>
+            <div class="mobile-status-right">
+                <div class="battery-indicator">
+                    <span id="modalBatteryPercent2">100%</span>
+                    <div class="battery-icon">
+                        <div class="battery-fill" style="width: 100%;"></div>
+                        <span class="modal-charging-icon" style="display: none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 8px;">⚡</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mobile-modal-header">
+            <div style="width: 60px;"></div>
+            <div class="mobile-modal-title">Music Player</div>
+            <div style="width: 60px;"></div>
+        </div>
+        <div class="mobile-modal-content">
+            <iframe scrolling="no" 
+                    allow="autoplay"
+                    style="width: 100%; height: 200px; border: none;"
+                    src="https://w.soundcloud.com/player/?url=https://soundcloud.com/deliciousramyun/fungus&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true">
+            </iframe>
+            <div style="padding: 15px; background: #f5f5f5;">
+                <h3 style="margin: 0 0 10px 0; font-size: 16px; color: #333;">Now Playing</h3>
+                <p style="margin: 0; font-size: 13px; color: #666; line-height: 1.5;">Listen to tracks from delicious ramyun on SoundCloud.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="mobile-app-modal" id="mobileModalPhotos">
+        <div class="mobile-status-bar">
+            <div class="mobile-status-left">
+                <span>🌍 🌎 🌏</span>
+                <span>Cloud Connect</span>
+            </div>
+            <div class="mobile-status-center">
+                <span id="mobileModalStatusTime3">12:00 PM</span>
+            </div>
+            <div class="mobile-status-right">
+                <div class="battery-indicator">
+                    <span id="modalBatteryPercent3">100%</span>
+                    <div class="battery-icon">
+                        <div class="battery-fill" style="width: 100%;"></div>
+                        <span class="modal-charging-icon" style="display: none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 8px;">⚡</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mobile-modal-header">
+            <div style="width: 60px;"></div>
+            <div class="mobile-modal-title">Photos</div>
+            <div style="width: 60px;"></div>
+        </div>
+        <div class="mobile-modal-content" style="text-align: center; padding: 20px;">
+            <img src="images/about/me.jpg" alt="Photo" style="max-width: 100%; height: auto; margin-bottom: 15px; border-radius: 8px;">
+            <video autoplay muted loop playsinline style="max-width: 100%; height: auto; border-radius: 8px;">
+                <source src="images/about/fish.mp4" type="video/mp4">
+            </video>
+        </div>
+    </div>
+
+    <div class="mobile-app-modal" id="mobileModalMail">
+        <div class="mobile-status-bar">
+            <div class="mobile-status-left">
+                <span>🌍 🌎 🌏</span>
+                <span>Cloud Connect</span>
+            </div>
+            <div class="mobile-status-center">
+                <span id="mobileModalStatusTime4">12:00 PM</span>
+            </div>
+            <div class="mobile-status-right">
+                <div class="battery-indicator">
+                    <span id="modalBatteryPercent4">100%</span>
+                    <div class="battery-icon">
+                        <div class="battery-fill" style="width: 100%;"></div>
+                        <span class="modal-charging-icon" style="display: none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 8px;">⚡</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mobile-modal-header">
+            <div style="width: 60px;"></div>
+            <div class="mobile-modal-title">Mail</div>
+            <div style="width: 60px;"></div>
+        </div>
+        <div class="mobile-modal-content" style="padding: 20px; text-align: center;">
+            <div style="font-size: 64px; margin: 40px 0 20px;">💌</div>
+            <h3 style="margin: 0 0 10px 0; font-size: 18px; color: #333;">Contact Me</h3>
+            <p style="margin: 0 0 20px 0; font-size: 14px; color: #666;">Tap the button below to send an email</p>
+            <a href="mailto:deliciousramyun@gmail.com" style="display: inline-block; padding: 12px 24px; background: linear-gradient(to bottom, #5a9dfb, #3b7bd8); color: white; text-decoration: none; border-radius: 8px; font-weight: 600; box-shadow: 0 2px 4px rgba(0,0,0,0.2);">
+                deliciousramyun@gmail.com
+            </a>
+        </div>
+    </div>
+
+    <div class="mobile-app-modal" id="mobileModalNotes">
+        <div class="mobile-status-bar">
+            <div class="mobile-status-left">
+                <span>🌍 🌎 🌏</span>
+                <span>Cloud Connect</span>
+            </div>
+            <div class="mobile-status-center">
+                <span id="mobileModalStatusTime5">12:00 PM</span>
+            </div>
+            <div class="mobile-status-right">
+                <div class="battery-indicator">
+                    <span id="modalBatteryPercent5">100%</span>
+                    <div class="battery-icon">
+                        <div class="battery-fill" style="width: 100%;"></div>
+                        <span class="modal-charging-icon" style="display: none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 8px;">⚡</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mobile-modal-header">
+            <div style="width: 60px;"></div>
+            <div class="mobile-modal-title">Notes</div>
+            <div style="width: 60px;"></div>
+        </div>
+        <div class="mobile-modal-content" style="padding: 20px; background: #fffbcc; font-family: 'Helvetica Neue', Arial, sans-serif;">
+            <strong style="font-size: 16px;">goals for today:</strong><br>
+            <div style="margin-top: 12px; font-size: 14px; line-height: 1.8;">
+                • make lofi<br>
+                • eat good food<br>
+                • be happy
+            </div>
+        </div>
+    </div>
+
+    <div class="mobile-app-modal" id="mobileModalFinder">
+        <div class="mobile-status-bar">
+            <div class="mobile-status-left">
+                <span>🌍 🌎 🌏</span>
+                <span>Cloud Connect</span>
+            </div>
+            <div class="mobile-status-center">
+                <span id="mobileModalStatusTime6">12:00 PM</span>
+            </div>
+            <div class="mobile-status-right">
+                <div class="battery-indicator">
+                    <span id="modalBatteryPercent6">100%</span>
+                    <div class="battery-icon">
+                        <div class="battery-fill" style="width: 100%;"></div>
+                        <span class="modal-charging-icon" style="display: none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 8px;">⚡</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mobile-modal-header">
+            <div style="width: 60px;"></div>
+            <div class="mobile-modal-title">Finder</div>
+            <div style="width: 60px;"></div>
+        </div>
+        <div class="mobile-modal-content" style="padding: 20px;">
+            <div style="text-align: center; padding: 40px 20px;">
+                <div style="font-size: 64px; margin-bottom: 20px;">🖥</div>
+                <h3 style="margin: 0 0 10px 0; font-size: 18px; color: #333;">Finder</h3>
+                <p style="margin: 0; font-size: 14px; color: #666; line-height: 1.5;">Browse and manage your files</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="mobile-app-modal" id="mobileModalSettings">
+        <div class="mobile-status-bar">
+            <div class="mobile-status-left">
+                <span>🌍 🌎 🌏</span>
+                <span>Cloud Connect</span>
+            </div>
+            <div class="mobile-status-center">
+                <span id="mobileModalStatusTime7">12:00 PM</span>
+            </div>
+            <div class="mobile-status-right">
+                <div class="battery-indicator">
+                    <span id="modalBatteryPercent7">100%</span>
+                    <div class="battery-icon">
+                        <div class="battery-fill" style="width: 100%;"></div>
+                        <span class="modal-charging-icon" style="display: none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 8px;">⚡</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mobile-modal-header">
+            <div style="width: 60px;"></div>
+            <div class="mobile-modal-title">Settings</div>
+            <div style="width: 60px;"></div>
+        </div>
+        <div class="mobile-modal-content" style="background: #f5f5f5;">
+            <div style="background: white; margin: 20px 0; padding: 0; border-top: 1px solid #ccc; border-bottom: 1px solid #ccc;">
+                <div style="padding: 12px 15px; border-bottom: 1px solid #e0e0e0; font-size: 14px;">General</div>
+                <div style="padding: 12px 15px; border-bottom: 1px solid #e0e0e0; font-size: 14px;">Display & Brightness</div>
+                <div style="padding: 12px 15px; font-size: 14px;">Sounds</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mobile-app-modal" id="mobileModalAbout">
+        <div class="mobile-status-bar">
+            <div class="mobile-status-left">
+                <span>🌍 🌎 🌏</span>
+                <span>Cloud Connect</span>
+            </div>
+            <div class="mobile-status-center">
+                <span id="mobileModalStatusTime8">12:00 PM</span>
+            </div>
+            <div class="mobile-status-right">
+                <div class="battery-indicator">
+                    <span id="modalBatteryPercent8">100%</span>
+                    <div class="battery-icon">
+                        <div class="battery-fill" style="width: 100%;"></div>
+                        <span class="modal-charging-icon" style="display: none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 8px;">⚡</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mobile-modal-header">
+            <div style="width: 60px;"></div>
+            <div class="mobile-modal-title">About</div>
+            <div style="width: 60px;"></div>
+        </div>
+        <div class="mobile-modal-content" style="padding: 20px; text-align: center;">
+            <img src="images/logo/dramyun_logo.gif" alt="Logo" style="max-width: 100%; height: auto; margin-bottom: 15px;">
             <h2 style="margin: 0 0 5px 0; font-size: 18px; color: #333;">Head in the Clouds</h2>
             <p style="margin: 5px 0; font-size: 12px; color: #666;">Version 1.0</p>
-            <p style="margin: 20px 0 10px 0; font-size: 11px; color: #666; line-height: 1.6;">
+            <p style="margin: 20px 0 10px 0; font-size: 12px; color: #666; line-height: 1.6;">
                 1. (figurative) Distracted or disconnected from reality<br>
                 2. (figurative) Having fantastic or impractical dreams
             </p>
@@ -618,126 +1634,11 @@
             <p style="margin: 5px 0; font-size: 10px; color: #999;">© delicious ramyun 2025</p>
         </div>
     </div>
-
-    <!-- Photos/Image Viewer Window -->
-    <div class="window closed" id="photosWindow">
-        <div class="title-bar" data-window="photos">
-            <div class="title-bar-controls">
-                <div class="mac-button close" onclick="handleWindowAction('photos', 'close')"></div>
-                <div class="mac-button minimize" onclick="handleWindowAction('photos', 'minimize')"></div>
-                <div class="mac-button maximize" onclick="handleWindowAction('photos', 'maximize')"></div>
-            </div>
-            <div class="title-bar-text">me.jpg</div>
-            <div style="width: 60px;"></div>
-        </div>
-        <div class="window-body">
-            <div class="player-container" style="background: #000; display: flex; align-items: center; justify-content: center;">
-                <img id="photoDisplay" src="images/about/me.jpg" 
-                     alt="Photo">
-            </div>
-        </div>
-    </div>
-
-    <!-- Second Video Player Window -->
-    <div class="window closed" id="videoWindow2">
-        <div class="title-bar" data-window="video2">
-            <div class="title-bar-controls">
-                <div class="mac-button close" onclick="handleWindowAction('video2', 'close')"></div>
-                <div class="mac-button minimize" onclick="handleWindowAction('video2', 'minimize')"></div>
-                <div class="mac-button maximize" onclick="handleWindowAction('video2', 'maximize')"></div>
-            </div>
-            <div class="title-bar-text">fish.mp4</div>
-            <div style="width: 60px;"></div>
-        </div>
-        <div class="window-body">
-            <div class="video-container" style="background: #000;">
-                <video id="mp4Video" autoplay muted loop playsinline style="display: block; width: 100%; height: auto;">
-                    <source src="images/about/fish.mp4" type="video/mp4">
-                </video>
-            </div>
-        </div>
-    </div>
-
-    <!-- Notes Window -->
-    <div class="window closed" id="notesWindow" style="width: auto; max-width: 280px;">
-        <div class="title-bar" data-window="notes">
-            <div class="title-bar-controls">
-                <div class="mac-button close" onclick="handleWindowAction('notes', 'close')"></div>
-                <div class="mac-button minimize" onclick="handleWindowAction('notes', 'minimize')"></div>
-                <div class="mac-button maximize" onclick="handleWindowAction('notes', 'maximize')"></div>
-            </div>
-            <div class="title-bar-text" style="padding-left: 20px;">Notes</div>
-            <div style="width: 60px;"></div>
-        </div>
-        <div class="window-body" style="padding: 20px; background: #fffbcc;">
-            <div style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 14px; color: #333; line-height: 1.6;">
-                <strong style="font-size: 15px;">goals for today:</strong><br>
-                <div style="margin-top: 8px;">
-                    • make lofi<br>
-                    • eat good food<br>
-                    • be happy
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<footer class="site-footer">
-    <p>© delicious ramyun 2025. Last updated: undefined</p>
-</footer>
-
-<div class="dock">
-    <div class="dock-item">
-        <div class="dock-icon">🖥</div>
-        <div class="dock-indicator"></div>
-        <div class="dock-label">Finder</div>
-    </div>
-    
-    <div class="dock-item active" id="youtubeDock">
-        <div class="dock-icon">💿</div>
-        <div class="dock-indicator"></div>
-        <div class="dock-label">Media Player</div>
-    </div>
-    
-    <div class="dock-item" id="musicDock">
-        <div class="dock-icon">🎵</div>
-        <div class="dock-indicator"></div>
-        <div class="dock-label">Music</div>
-    </div>
-    
-    <div class="dock-item" id="photosIcon">
-        <div class="dock-icon">📷</div>
-        <div class="dock-indicator"></div>
-        <div class="dock-label">Photos</div>
-    </div>
-
-    <div class="dock-item" id="mailIcon">
-        <div class="dock-icon">💌</div>
-        <div class="dock-indicator"></div>
-        <div class="dock-label">Mail</div>
-    </div>
-    
-    <div class="dock-item" id="notesIcon">
-        <div class="dock-icon">✏️</div>
-        <div class="dock-indicator"></div>
-        <div class="dock-label">Notes</div>
-    </div>
-    
-    <div class="dock-item">
-        <div class="dock-icon">⚙️</div>
-        <div class="dock-indicator"></div>
-        <div class="dock-label">System Preferences</div>
-    </div>
-    
-    <div class="dock-item">
-        <div class="dock-icon">🗑</div>
-        <div class="dock-indicator"></div>
-        <div class="dock-label">Trash</div>
-    </div>
 </div>
 
 <script src="https://www.youtube.com/iframe_api"></script>
 <script>
+    // ==================== DESKTOP JAVASCRIPT ====================
     const youtubeWindow = document.getElementById('youtubeWindow');
     const musicWindow = document.getElementById('musicWindow');
     const aboutWindow = document.getElementById('aboutWindow');
@@ -800,23 +1701,27 @@
     }
 
     // Dock clicks
-    youtubeDock.addEventListener('click', () => {
-        if (youtubeWindow.classList.contains('minimized')) {
-            youtubeWindow.classList.remove('minimized');
-        } else if (youtubeWindow.classList.contains('closed')) {
-            youtubeWindow.classList.remove('closed');
-            youtubeDock.classList.add('active');
-        }
-    });
+    if (youtubeDock) {
+        youtubeDock.addEventListener('click', () => {
+            if (youtubeWindow.classList.contains('minimized')) {
+                youtubeWindow.classList.remove('minimized');
+            } else if (youtubeWindow.classList.contains('closed')) {
+                youtubeWindow.classList.remove('closed');
+                youtubeDock.classList.add('active');
+            }
+        });
+    }
 
-    musicDock.addEventListener('click', () => {
-        if (musicWindow.classList.contains('minimized')) {
-            musicWindow.classList.remove('minimized');
-        } else if (musicWindow.classList.contains('closed')) {
-            musicWindow.classList.remove('closed');
-            musicDock.classList.add('active');
-        }
-    });
+    if (musicDock) {
+        musicDock.addEventListener('click', () => {
+            if (musicWindow.classList.contains('minimized')) {
+                musicWindow.classList.remove('minimized');
+            } else if (musicWindow.classList.contains('closed')) {
+                musicWindow.classList.remove('closed');
+                musicDock.classList.add('active');
+            }
+        });
+    }
 
     // Make windows draggable
     function makeDraggable(windowEl) {
@@ -845,12 +1750,10 @@
                 currentX = e.clientX - initialX;
                 currentY = e.clientY - initialY;
                 
-                // Prevent window from going above menu bar (28px)
                 if (currentY < 28) {
                     currentY = 28;
                 }
                 
-                // Clear right positioning if it exists (for video window)
                 windowEl.style.right = 'auto';
                 windowEl.style.left = currentX + 'px';
                 windowEl.style.top = currentY + 'px';
@@ -864,12 +1767,12 @@
         }
     }
 
-    makeDraggable(youtubeWindow);
-    makeDraggable(musicWindow);
-    makeDraggable(aboutWindow);
-    makeDraggable(photosWindow);
-    makeDraggable(videoWindow2);
-    makeDraggable(notesWindow);
+    if (youtubeWindow) makeDraggable(youtubeWindow);
+    if (musicWindow) makeDraggable(musicWindow);
+    if (aboutWindow) makeDraggable(aboutWindow);
+    if (photosWindow) makeDraggable(photosWindow);
+    if (videoWindow2) makeDraggable(videoWindow2);
+    if (notesWindow) makeDraggable(notesWindow);
 
     // YouTube Player API
     let player;
@@ -903,9 +1806,10 @@
                 const duration = player.getDuration();
                 const percent = (currentTime / duration) * 100;
                 
-                document.getElementById('ytProgressFill').style.width = percent + '%';
-                document.getElementById('ytTimeDisplay').textContent = 
-                    formatTime(currentTime) + ' / ' + formatTime(duration);
+                const progressFill = document.getElementById('ytProgressFill');
+                const timeDisplay = document.getElementById('ytTimeDisplay');
+                if (progressFill) progressFill.style.width = percent + '%';
+                if (timeDisplay) timeDisplay.textContent = formatTime(currentTime) + ' / ' + formatTime(duration);
             }
         }, 100);
     }
@@ -923,72 +1827,100 @@
     }
 
     // YouTube Controls
-    document.getElementById('ytPlayBtn').addEventListener('click', () => {
-        if (player && player.playVideo) player.playVideo();
-    });
+    const ytPlayBtn = document.getElementById('ytPlayBtn');
+    const ytPauseBtn = document.getElementById('ytPauseBtn');
+    const ytStopBtn = document.getElementById('ytStopBtn');
+    const ytRewindBtn = document.getElementById('ytRewindBtn');
+    const ytForwardBtn = document.getElementById('ytForwardBtn');
+    const ytProgressBar = document.getElementById('ytProgressBar');
 
-    document.getElementById('ytPauseBtn').addEventListener('click', () => {
-        if (player && player.pauseVideo) player.pauseVideo();
-    });
+    if (ytPlayBtn) {
+        ytPlayBtn.addEventListener('click', () => {
+            if (player && player.playVideo) player.playVideo();
+        });
+    }
 
-    document.getElementById('ytStopBtn').addEventListener('click', () => {
-        if (player && player.stopVideo) {
-            player.stopVideo();
-            document.getElementById('ytProgressFill').style.width = '0%';
-            document.getElementById('ytTimeDisplay').textContent = '0:00 / 0:00';
-        }
-    });
+    if (ytPauseBtn) {
+        ytPauseBtn.addEventListener('click', () => {
+            if (player && player.pauseVideo) player.pauseVideo();
+        });
+    }
 
-    document.getElementById('ytRewindBtn').addEventListener('click', () => {
-        if (player && player.getCurrentTime) {
-            player.seekTo(Math.max(0, player.getCurrentTime() - 10));
-        }
-    });
+    if (ytStopBtn) {
+        ytStopBtn.addEventListener('click', () => {
+            if (player && player.stopVideo) {
+                player.stopVideo();
+                const progressFill = document.getElementById('ytProgressFill');
+                const timeDisplay = document.getElementById('ytTimeDisplay');
+                if (progressFill) progressFill.style.width = '0%';
+                if (timeDisplay) timeDisplay.textContent = '0:00 / 0:00';
+            }
+        });
+    }
 
-    document.getElementById('ytForwardBtn').addEventListener('click', () => {
-        if (player && player.getCurrentTime) {
-            player.seekTo(Math.min(player.getDuration(), player.getCurrentTime() + 10));
-        }
-    });
+    if (ytRewindBtn) {
+        ytRewindBtn.addEventListener('click', () => {
+            if (player && player.getCurrentTime) {
+                player.seekTo(Math.max(0, player.getCurrentTime() - 10));
+            }
+        });
+    }
 
-    document.getElementById('ytProgressBar').addEventListener('click', (e) => {
-        if (player && player.getDuration) {
-            const rect = e.currentTarget.getBoundingClientRect();
-            const percent = (e.clientX - rect.left) / rect.width;
-            player.seekTo(player.getDuration() * percent);
-        }
-    });
+    if (ytForwardBtn) {
+        ytForwardBtn.addEventListener('click', () => {
+            if (player && player.getCurrentTime) {
+                player.seekTo(Math.min(player.getDuration(), player.getCurrentTime() + 10));
+            }
+        });
+    }
+
+    if (ytProgressBar) {
+        ytProgressBar.addEventListener('click', (e) => {
+            if (player && player.getDuration) {
+                const rect = e.currentTarget.getBoundingClientRect();
+                const percent = (e.clientX - rect.left) / rect.width;
+                player.seekTo(player.getDuration() * percent);
+            }
+        });
+    }
 
     // YouTube Volume
     function updateYTVolume(percent) {
         if (player && player.setVolume) {
             player.setVolume(percent);
         }
-        document.getElementById('ytVolumeFill').style.width = percent + '%';
-        document.getElementById('ytVolumePercent').textContent = percent + '%';
+        const volumeFill = document.getElementById('ytVolumeFill');
+        const volumePercent = document.getElementById('ytVolumePercent');
+        if (volumeFill) volumeFill.style.width = percent + '%';
+        if (volumePercent) volumePercent.textContent = percent + '%';
     }
 
     let isDraggingYTVolume = false;
+    const ytVolumeSlider = document.getElementById('ytVolumeSlider');
     
-    document.getElementById('ytVolumeSlider').addEventListener('mousedown', (e) => {
-        isDraggingYTVolume = true;
-        const rect = e.currentTarget.getBoundingClientRect();
-        const percent = Math.round(((e.clientX - rect.left) / rect.width) * 100);
-        updateYTVolume(Math.max(0, Math.min(100, percent)));
-    });
-
-    document.addEventListener('mousemove', (e) => {
-        if (isDraggingYTVolume) {
-            const slider = document.getElementById('ytVolumeSlider');
-            const rect = slider.getBoundingClientRect();
+    if (ytVolumeSlider) {
+        ytVolumeSlider.addEventListener('mousedown', (e) => {
+            isDraggingYTVolume = true;
+            const rect = e.currentTarget.getBoundingClientRect();
             const percent = Math.round(((e.clientX - rect.left) / rect.width) * 100);
             updateYTVolume(Math.max(0, Math.min(100, percent)));
-        }
-    });
+        });
 
-    document.addEventListener('mouseup', () => {
-        isDraggingYTVolume = false;
-    });
+        document.addEventListener('mousemove', (e) => {
+            if (isDraggingYTVolume) {
+                const slider = document.getElementById('ytVolumeSlider');
+                if (slider) {
+                    const rect = slider.getBoundingClientRect();
+                    const percent = Math.round(((e.clientX - rect.left) / rect.width) * 100);
+                    updateYTVolume(Math.max(0, Math.min(100, percent)));
+                }
+            }
+        });
+
+        document.addEventListener('mouseup', () => {
+            isDraggingYTVolume = false;
+        });
+    }
 
     if (typeof YT !== 'undefined' && YT.Player) {
         onYouTubeIframeAPIReady();
@@ -1004,70 +1936,506 @@
         const ampm = hours >= 12 ? 'PM' : 'AM';
         hours = hours % 12 || 12;
         const mins = minutes < 10 ? '0' + minutes : minutes;
-        document.getElementById('menuBarTime').textContent = `${day} ${hours}:${mins} ${ampm}`;
+        const timeStr = `${day} ${hours}:${mins} ${ampm}`;
+        
+        const menuBarTime = document.getElementById('menuBarTime');
+        if (menuBarTime) menuBarTime.textContent = timeStr;
     }
 
     updateMenuBarTime();
     setInterval(updateMenuBarTime, 1000);
 
-    // Mail icon - opens default mail client with email address
-    document.getElementById('mailIcon').addEventListener('click', () => {
-        window.location.href = 'mailto:deliciousramyun@gmail.com';
-    });
+    // Mail icon
+    const mailIcon = document.getElementById('mailIcon');
+    if (mailIcon) {
+        mailIcon.addEventListener('click', () => {
+            window.location.href = 'mailto:deliciousramyun@gmail.com';
+        });
+    }
 
-    // Cloud logo - opens About window
-    document.querySelector('.menu-bar-logo').addEventListener('click', () => {
-        aboutWindow.classList.remove('closed');
-    });
+    // Cloud logo
+    const menuBarLogo = document.querySelector('.menu-bar-logo');
+    if (menuBarLogo) {
+        menuBarLogo.addEventListener('click', () => {
+            if (aboutWindow) aboutWindow.classList.remove('closed');
+        });
+    }
 
-    // Photos icon - opens both Photos and Video windows
-    photosDock.addEventListener('click', () => {
-        // Open photos window
-        if (photosWindow.classList.contains('minimized')) {
-            photosWindow.classList.remove('minimized');
-        } else if (photosWindow.classList.contains('closed')) {
-            photosWindow.classList.remove('closed');
-            photosDock.classList.add('active');
-            // Set initial position for photos window (upper left)
-            photosWindow.style.left = '20px';
-            photosWindow.style.top = '50px';
+    // Photos icon
+    if (photosDock) {
+        photosDock.addEventListener('click', () => {
+            if (photosWindow) {
+                if (photosWindow.classList.contains('minimized')) {
+                    photosWindow.classList.remove('minimized');
+                } else if (photosWindow.classList.contains('closed')) {
+                    photosWindow.classList.remove('closed');
+                    photosDock.classList.add('active');
+                    photosWindow.style.left = '20px';
+                    photosWindow.style.top = '50px';
+                }
+            }
+            
+            if (videoWindow2) {
+                if (videoWindow2.classList.contains('closed')) {
+                    videoWindow2.classList.remove('closed');
+                    videoWindow2.style.right = '20px';
+                    videoWindow2.style.left = 'auto';
+                    videoWindow2.style.top = '50px';
+                    
+                    const video = document.getElementById('mp4Video');
+                    if (video) {
+                        video.play().catch(e => console.log('Autoplay prevented:', e));
+                    }
+                }
+            }
+        });
+    }
+
+    // Notes icon
+    if (notesDock) {
+        notesDock.addEventListener('click', () => {
+            if (notesWindow) {
+                if (notesWindow.classList.contains('minimized')) {
+                    notesWindow.classList.remove('minimized');
+                } else if (notesWindow.classList.contains('closed')) {
+                    notesWindow.classList.remove('closed');
+                    notesDock.classList.add('active');
+                    notesWindow.style.left = '50%';
+                    notesWindow.style.top = '50%';
+                    notesWindow.style.transform = 'translate(-50%, -50%)';
+                }
+            }
+        });
+    }
+
+    // Trash icon
+    const trashIcon = document.getElementById('trashIcon');
+    if (trashIcon) {
+        trashIcon.addEventListener('click', () => {
+            window.close();
+        });
+    }
+
+    // ==================== MOBILE JAVASCRIPT ====================
+    
+    // Update battery level
+    function updateBatteryLevel(level, isCharging) {
+        const batteryPercent = Math.round(level * 100);
+        const batteryFill = document.getElementById('mobileBatteryFill');
+        const batteryPercentText = document.getElementById('mobileBatteryPercent');
+        const chargingIcon = document.getElementById('mobileChargingIcon');
+        
+        if (batteryFill) batteryFill.style.width = batteryPercent + '%';
+        if (batteryPercentText) batteryPercentText.textContent = batteryPercent + '%';
+        
+        // Show/hide charging icon
+        if (chargingIcon) {
+            chargingIcon.style.display = isCharging ? 'inline' : 'none';
         }
         
-        // Also open video window
-        if (videoWindow2.classList.contains('closed')) {
-            videoWindow2.classList.remove('closed');
-            // Set initial position for video window (upper right)
-            videoWindow2.style.right = '20px';
-            videoWindow2.style.left = 'auto';
-            videoWindow2.style.top = '50px';
+        // Update all modal batteries
+        for (let i = 1; i <= 8; i++) {
+            const modalPercent = document.getElementById(`modalBatteryPercent${i}`);
+            if (modalPercent) modalPercent.textContent = batteryPercent + '%';
+        }
+        
+        // Update all modal charging icons
+        const modalChargingIcons = document.querySelectorAll('.modal-charging-icon');
+        modalChargingIcons.forEach(icon => {
+            icon.style.display = isCharging ? 'inline' : 'none';
+        });
+        
+        // Change color based on battery level (green if charging)
+        let color;
+        if (isCharging) {
+            color = 'linear-gradient(to bottom, rgba(52,199,89,1) 0%, rgba(40,180,70,1) 50%, rgba(30,160,60,1) 100%)'; // Green gradient when charging
+        } else if (batteryPercent <= 20) {
+            color = 'linear-gradient(to bottom, rgba(255,59,48,1) 0%, rgba(230,50,40,1) 50%, rgba(200,40,30,1) 100%)'; // Red gradient
+        } else if (batteryPercent <= 50) {
+            color = 'linear-gradient(to bottom, rgba(255,204,0,1) 0%, rgba(230,180,0,1) 50%, rgba(200,160,0,1) 100%)'; // Yellow gradient
+        } else {
+            color = 'linear-gradient(to bottom, rgba(255,255,255,1) 0%, rgba(230,230,230,1) 50%, rgba(200,200,200,1) 100%)'; // White gradient
+        }
+        
+        // Update main battery fill
+        if (batteryFill) batteryFill.style.background = color;
+        
+        // Update all modal battery fills
+        const allBatteryFills = document.querySelectorAll('.battery-fill');
+        allBatteryFills.forEach(fill => {
+            if (fill.id !== 'mobileBatteryFill') {
+                fill.style.background = color;
+                fill.style.width = batteryPercent + '%';
+            }
+        });
+    }
+    
+    // Fetch YouTube video info
+    async function fetchYouTubeVideoInfo(videoId) {
+        try {
+            // Using YouTube oEmbed API (no API key required)
+            const oEmbedUrl = `https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${videoId}&format=json`;
+            const response = await fetch(oEmbedUrl);
+            const data = await response.json();
             
-            // Ensure video plays
-            const video = document.getElementById('mp4Video');
-            if (video) {
-                video.play().catch(e => console.log('Autoplay prevented:', e));
+            // Update video title
+            const titleEl = document.getElementById('videoTitle');
+            if (titleEl && data.title) {
+                titleEl.textContent = data.title;
+            }
+            
+            // Update channel name
+            const channelEl = document.getElementById('channelName');
+            if (channelEl && data.author_name) {
+                channelEl.textContent = data.author_name;
+            }
+            
+            // Try to get channel avatar from author_url
+            if (data.author_url) {
+                fetchChannelInfo(data.author_url, data.author_name);
+            }
+            
+            // Try to fetch additional video stats
+            fetchVideoStats(videoId);
+            
+            // Load related videos
+            loadRelatedVideos(data.author_name);
+            
+        } catch (error) {
+            console.error('Error fetching video info:', error);
+            const titleEl = document.getElementById('videoTitle');
+            if (titleEl) {
+                titleEl.textContent = 'Video from delicious ramyun';
+            }
+            loadRelatedVideos('delicious ramyun');
+        }
+    }
+    
+    // Fetch channel information including avatar and subscriber count
+    async function fetchChannelInfo(channelUrl, channelName) {
+        try {
+            // Try to scrape channel page for info (limited without API key)
+            // We'll use the RSS feed as an alternative
+            const channelHandle = channelUrl.split('/').pop();
+            
+            // For now, try to get avatar from YouTube thumbnail
+            // Format: https://yt3.ggpht.com/... (requires channel ID)
+            
+            // Alternative: Use a placeholder or channel banner
+            const avatarEl = document.getElementById('channelAvatar');
+            if (avatarEl) {
+                // Try to load channel avatar via iframe trick
+                const img = new Image();
+                img.crossOrigin = 'anonymous';
+                img.onerror = function() {
+                    // Keep gradient background if image fails
+                    console.log('Could not load channel avatar');
+                };
+                
+                // Note: Without API key, we can't reliably get avatar
+                // But we can try common patterns
+                const channelId = channelHandle.replace('@', '');
+                img.src = `https://yt3.googleusercontent.com/ytc/default_avatar.jpg`;
+            }
+            
+            // Try to estimate subscribers from social blade or other sources
+            // Without API key, this is very limited
+            const subEl = document.getElementById('subscriberCount');
+            if (subEl) {
+                // For now, show a generic message
+                subEl.textContent = 'Subscribe for more';
+            }
+            
+        } catch (error) {
+            console.error('Error fetching channel info:', error);
+        }
+    }
+    
+    // Fetch video statistics (views, likes, upload date)
+    async function fetchVideoStats(videoId) {
+        try {
+            // Try to fetch from noembed API for additional metadata
+            const noEmbedUrl = `https://noembed.com/embed?url=https://www.youtube.com/watch?v=${videoId}`;
+            const response = await fetch(noEmbedUrl);
+            const data = await response.json();
+            
+            // Update view count if available
+            if (data.view_count) {
+                const viewEl = document.getElementById('viewCount');
+                if (viewEl) {
+                    viewEl.textContent = formatNumber(data.view_count) + ' views';
+                }
+            }
+            
+            // Update upload date if available
+            if (data.upload_date) {
+                const dateEl = document.getElementById('uploadDate');
+                if (dateEl) {
+                    dateEl.textContent = formatDate(data.upload_date);
+                }
+            }
+            
+        } catch (error) {
+            console.error('Error fetching video stats:', error);
+        }
+    }
+    
+    // Format large numbers (e.g., 1234567 -> 1.2M)
+    function formatNumber(num) {
+        if (num >= 1000000) {
+            return (num / 1000000).toFixed(1) + 'M';
+        } else if (num >= 1000) {
+            return (num / 1000).toFixed(1) + 'K';
+        }
+        return num.toString();
+    }
+    
+    // Format date (e.g., "2024-01-15" -> "Jan 15, 2024")
+    function formatDate(dateStr) {
+        try {
+            const date = new Date(dateStr);
+            const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+            return `${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`;
+        } catch (error) {
+            return dateStr;
+        }
+    }
+    
+    // Your actual video IDs - These will show as recommendations
+    const channelVideos = [
+        { id: 'JhhIffH7O-A', title: 'Loading...', thumbnail: '' },
+        { id: 'BY4EpYYW17I', title: 'Loading...', thumbnail: '' },
+        { id: 'XEXva7UaBmc', title: 'Loading...', thumbnail: '' },
+    ];
+    
+    // Fetch real thumbnails and titles for channel videos
+    async function fetchVideoDetails(videoId) {
+        try {
+            const oEmbedUrl = `https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${videoId}&format=json`;
+            const response = await fetch(oEmbedUrl);
+            const data = await response.json();
+            return {
+                title: data.title || 'Video',
+                thumbnail: data.thumbnail_url || ''
+            };
+        } catch (error) {
+            console.error('Error fetching video details:', error);
+            return {
+                title: 'Video',
+                thumbnail: ''
+            };
+        }
+    }
+    
+    // Load related videos from the same channel
+    async function loadRelatedVideos(channelName) {
+        const relatedVideosEl = document.getElementById('relatedVideos');
+        if (!relatedVideosEl) return;
+        
+        relatedVideosEl.innerHTML = '<div style="text-align: center; padding: 20px; color: #aaa; font-size: 12px;">Loading videos...</div>';
+        
+        // Fetch details for all videos
+        const videosWithDetails = await Promise.all(
+            channelVideos.map(async (video) => {
+                const details = await fetchVideoDetails(video.id);
+                return {
+                    ...video,
+                    title: details.title,
+                    thumbnail: details.thumbnail
+                };
+            })
+        );
+        
+        // Display videos
+        relatedVideosEl.innerHTML = videosWithDetails.map(video => `
+            <div style="display: flex; gap: 10px; cursor: pointer; padding: 8px; border-radius: 8px; transition: background 0.2s;" 
+                 onmouseover="this.style.background='#f0f0f0'" 
+                 onmouseout="this.style.background='transparent'"
+                 onclick="loadVideo('${video.id}')">
+                <div style="width: 168px; height: 94px; background: #000; border-radius: 8px; flex-shrink: 0; overflow: hidden; position: relative;">
+                    ${video.thumbnail ? 
+                        `<img src="${video.thumbnail}" style="width: 100%; height: 100%; object-fit: cover;">` : 
+                        `<div style="width: 100%; height: 100%; background: linear-gradient(135deg, #667eea, #764ba2); display: flex; align-items: center; justify-content: center; font-size: 32px;">📺</div>`
+                    }
+                </div>
+                <div style="flex: 1; min-width: 0;">
+                    <div style="font-size: 13px; font-weight: 500; line-height: 1.3; margin-bottom: 4px; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; color: #0f0f0f;">
+                        ${video.title}
+                    </div>
+                    <div style="font-size: 11px; color: #606060; margin-top: 4px;">
+                        ${channelName || 'delicious ramyun'}
+                    </div>
+                </div>
+            </div>
+        `).join('');
+    }
+    
+    // Load a new video
+    function loadVideo(videoId) {
+        const iframe = document.getElementById('mobileYoutubePlayer');
+        if (iframe) {
+            iframe.src = `https://www.youtube.com/embed/${videoId}?enablejsapi=1&autoplay=1&rel=1`;
+            fetchYouTubeVideoInfo(videoId);
+            
+            // Scroll to top of video
+            const modalContent = iframe.closest('.mobile-modal-content');
+            if (modalContent) {
+                modalContent.scrollTop = 0;
             }
         }
-    });
-
-    // Notes icon - opens notes window
-    notesDock.addEventListener('click', () => {
-        if (notesWindow.classList.contains('minimized')) {
-            notesWindow.classList.remove('minimized');
-        } else if (notesWindow.classList.contains('closed')) {
-            notesWindow.classList.remove('closed');
-            notesDock.classList.add('active');
-            // Set initial position for notes window (center)
-            notesWindow.style.left = '50%';
-            notesWindow.style.top = '50%';
-            notesWindow.style.transform = 'translate(-50%, -50%)';
+    }
+    
+    // Try to get battery level from Battery API
+    if ('getBattery' in navigator) {
+        navigator.getBattery().then(function(battery) {
+            // Initial battery level
+            updateBatteryLevel(battery.level, battery.charging);
+            
+            // Update when battery level changes
+            battery.addEventListener('levelchange', function() {
+                updateBatteryLevel(battery.level, battery.charging);
+            });
+            
+            // Update when charging status changes
+            battery.addEventListener('chargingchange', function() {
+                updateBatteryLevel(battery.level, battery.charging);
+            });
+        });
+    } else {
+        // Fallback: use default 100% if Battery API not supported
+        updateBatteryLevel(1.0, false);
+    }
+    
+    // Update mobile time
+    function updateMobileTime() {
+        const now = new Date();
+        const hours = now.getHours();
+        const minutes = now.getMinutes();
+        const ampm = hours >= 12 ? 'PM' : 'AM';
+        const displayHours = hours % 12 || 12;
+        const mins = minutes < 10 ? '0' + minutes : minutes;
+        
+        const timeStr = `${displayHours}:${mins}`;
+        const fullTimeStr = `${displayHours}:${mins} ${ampm}`;
+        
+        const mobileTime = document.getElementById('mobileTime');
+        const mobileStatusTime = document.getElementById('mobileStatusTime');
+        
+        if (mobileTime) mobileTime.textContent = timeStr;
+        if (mobileStatusTime) mobileStatusTime.textContent = fullTimeStr;
+        
+        // Update all modal status times
+        for (let i = 1; i <= 8; i++) {
+            const elem = document.getElementById(`mobileModalStatusTime${i}`);
+            if (elem) elem.textContent = fullTimeStr;
         }
+        
+        // Update date
+        const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+        const dateStr = `${days[now.getDay()]}, ${months[now.getMonth()]} ${now.getDate()}`;
+        
+        const mobileDate = document.getElementById('mobileDate');
+        if (mobileDate) mobileDate.textContent = dateStr;
+    }
+    
+    updateMobileTime();
+    setInterval(updateMobileTime, 1000);
+    
+    // Mobile app clicks
+    function openMobileApp(appName) {
+        const modal = document.getElementById(`mobileModal${appName.charAt(0).toUpperCase() + appName.slice(1)}`);
+        if (modal) {
+            console.log('Opening modal:', modal.id);
+            modal.classList.add('active');
+            
+            // Hide dock but move home button down
+            const dockContainer = document.querySelector('.mobile-dock-container');
+            const homeButton = document.querySelector('.mobile-home-button');
+            if (dockContainer) dockContainer.classList.add('hidden');
+            if (homeButton) homeButton.classList.add('moved-down');
+            
+            // If opening media app, fetch video info
+            if (appName === 'media') {
+                setTimeout(() => {
+                    fetchYouTubeVideoInfo('lF6hv4qAKxI');
+                }, 500);
+            }
+        }
+    }
+    
+    // Make it global so inline onclick works
+    window.closeMobileApp = function(appName) {
+        const modal = document.getElementById(`mobileModal${appName.charAt(0).toUpperCase() + appName.slice(1)}`);
+        if (modal) {
+            console.log('Closing modal:', modal.id);
+            modal.classList.remove('active');
+            
+            // Show dock and move home button back up
+            const dockContainer = document.querySelector('.mobile-dock-container');
+            const homeButton = document.querySelector('.mobile-home-button');
+            if (dockContainer) dockContainer.classList.remove('hidden');
+            if (homeButton) homeButton.classList.remove('moved-down');
+        }
+    }
+    
+    // Close all modals - GLOBAL FUNCTION
+    window.closeAllModals = function() {
+        console.log('closeAllModals called!');
+        const modals = document.querySelectorAll('.mobile-app-modal');
+        console.log('Found modals:', modals.length);
+        modals.forEach(modal => {
+            console.log('Removing active from:', modal.id);
+            modal.classList.remove('active');
+        });
+        
+        // Show dock and move home button back up
+        const dockContainer = document.querySelector('.mobile-dock-container');
+        const homeButton = document.querySelector('.mobile-home-button');
+        if (dockContainer) dockContainer.classList.remove('hidden');
+        if (homeButton) homeButton.classList.remove('moved-down');
+        
+        console.log('All modals closed');
+    }
+    
+    // Add click handlers to all mobile apps
+    const mobileApps = document.querySelectorAll('.mobile-app');
+    console.log('Found mobile apps:', mobileApps.length);
+    mobileApps.forEach(app => {
+        app.addEventListener('click', () => {
+            const appName = app.getAttribute('data-app');
+            console.log('Opening app:', appName);
+            openMobileApp(appName);
+        });
     });
-
-    // Trash icon - closes the browser window/tab
-    const trashIcon = document.querySelectorAll('.dock-item')[7]; // 8th item (index 7) is trash
-    trashIcon.addEventListener('click', () => {
-        window.close();
-    });
+    
+    // Add home button functionality
+    const mobileHomeButton = document.querySelector('.mobile-home-button');
+    console.log('Home button element:', mobileHomeButton);
+    if (mobileHomeButton) {
+        // Handle both click and touch events
+        mobileHomeButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log('Home button CLICKED!');
+            closeAllModals();
+        });
+        
+        mobileHomeButton.addEventListener('touchend', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log('Home button TOUCHED!');
+            closeAllModals();
+        });
+        
+        mobileHomeButton.addEventListener('touchstart', function(e) {
+            console.log('Home button touch started');
+        });
+        
+        console.log('Home button initialized successfully');
+    } else {
+        console.log('ERROR: Home button not found!');
+    }
 </script>
 
 </body>
