@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Head in the Clouds</title>
     <link rel="icon" href="images/favicon/favicon32.ico" type="image/x-icon">
     <link rel="stylesheet" href="css/style.css">
@@ -30,7 +30,7 @@
     </div>
 
     <video class="video-background" autoplay muted loop playsinline>
-        <source src="images/backgrounds/clouds.mp4" type="video/mp4">
+        <source data-src="images/backgrounds/clouds.mp4" type="video/mp4">
     </video>
 
     <div class="content-wrapper">
@@ -39,9 +39,9 @@
         <div class="window" id="youtubeWindow">
             <div class="title-bar" data-window="youtube">
                 <div class="title-bar-controls">
-                    <div class="mac-button close" onclick="handleWindowAction('youtube', 'close')"></div>
-                    <div class="mac-button minimize" onclick="handleWindowAction('youtube', 'minimize')"></div>
-                    <div class="mac-button maximize"></div>
+                    <button type="button" class="mac-button close" data-action="close" aria-label="Close window"></button>
+                    <button type="button" class="mac-button minimize" data-action="minimize" aria-label="Minimize window"></button>
+                    <button type="button" class="mac-button maximize" aria-label="Zoom (unavailable)" tabindex="-1" disabled></button>
                 </div>
                 <div class="title-bar-text">Media Player</div>
                 <div class="title-spacer"></div>
@@ -49,7 +49,7 @@
             <div class="window-body">
                 <div class="video-container">
                     <iframe id="youtubePlayer"
-                            src="https://www.youtube.com/embed/lF6hv4qAKxI?enablejsapi=1&autoplay=0&rel=0&controls=0&modestbranding=1&iv_load_policy=3&disablekb=1"
+                            data-src="https://www.youtube.com/embed/lF6hv4qAKxI?enablejsapi=1&autoplay=0&rel=0&controls=0&modestbranding=1&iv_load_policy=3&disablekb=1"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                             allowfullscreen>
                     </iframe>
@@ -88,9 +88,9 @@
         <div class="window closed" id="musicWindow">
             <div class="title-bar" data-window="music">
                 <div class="title-bar-controls">
-                    <div class="mac-button close" onclick="handleWindowAction('music', 'close')"></div>
-                    <div class="mac-button minimize" onclick="handleWindowAction('music', 'minimize')"></div>
-                    <div class="mac-button maximize"></div>
+                    <button type="button" class="mac-button close" data-action="close" aria-label="Close window"></button>
+                    <button type="button" class="mac-button minimize" data-action="minimize" aria-label="Minimize window"></button>
+                    <button type="button" class="mac-button maximize" aria-label="Zoom (unavailable)" tabindex="-1" disabled></button>
                 </div>
                 <div class="title-bar-text">Music Player</div>
                 <div class="title-spacer"></div>
@@ -99,13 +99,14 @@
                 <div style="height:0;overflow:hidden;">
                     <iframe id="soundcloudPlayer"
                             allow="autoplay"
-                            src="https://w.soundcloud.com/player/?url=https://soundcloud.com/deliciousramyun/fungus&auto_play=false&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false"
+                            data-src="https://w.soundcloud.com/player/?url=https://soundcloud.com/deliciousramyun/fungus&auto_play=false&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false"
                             style="width:300px;height:166px;border:none;">
                     </iframe>
                 </div>
                 <div class="sc-player">
                     <div class="sc-artwork-wrap">
-                        <img id="scArtwork" src="" alt="" class="sc-artwork-img">
+                        <i class="ph-fill ph-music-notes sc-artwork-placeholder" aria-hidden="true"></i>
+                        <img id="scArtwork" alt="" class="sc-artwork-img">
                     </div>
                     <div class="sc-info">
                         <div class="sc-title" id="scTrackTitle">fungus</div>
@@ -144,9 +145,9 @@
         <div class="window closed" id="aboutWindow">
             <div class="title-bar" data-window="about">
                 <div class="title-bar-controls">
-                    <div class="mac-button close" onclick="handleWindowAction('about', 'close')"></div>
-                    <div class="mac-button minimize disabled"></div>
-                    <div class="mac-button maximize disabled"></div>
+                    <button type="button" class="mac-button close" data-action="close" aria-label="Close window"></button>
+                    <button type="button" class="mac-button minimize disabled" aria-label="Minimize (unavailable)" tabindex="-1" disabled></button>
+                    <button type="button" class="mac-button maximize disabled" aria-label="Zoom (unavailable)" tabindex="-1" disabled></button>
                 </div>
                 <div class="title-bar-text">About</div>
                 <div class="title-spacer"></div>
@@ -168,9 +169,9 @@
         <div class="window closed" id="photosWindow">
             <div class="title-bar" data-window="photos">
                 <div class="title-bar-controls">
-                    <div class="mac-button close" onclick="handleWindowAction('photos', 'close')"></div>
-                    <div class="mac-button minimize" onclick="handleWindowAction('photos', 'minimize')"></div>
-                    <div class="mac-button maximize"></div>
+                    <button type="button" class="mac-button close" data-action="close" aria-label="Close window"></button>
+                    <button type="button" class="mac-button minimize" data-action="minimize" aria-label="Minimize window"></button>
+                    <button type="button" class="mac-button maximize" aria-label="Zoom (unavailable)" tabindex="-1" disabled></button>
                 </div>
                 <div class="title-bar-text">me.jpg</div>
                 <div class="title-spacer"></div>
@@ -186,9 +187,9 @@
         <div class="window closed" id="videoWindow2">
             <div class="title-bar" data-window="video2">
                 <div class="title-bar-controls">
-                    <div class="mac-button close" onclick="handleWindowAction('video2', 'close')"></div>
-                    <div class="mac-button minimize" onclick="handleWindowAction('video2', 'minimize')"></div>
-                    <div class="mac-button maximize"></div>
+                    <button type="button" class="mac-button close" data-action="close" aria-label="Close window"></button>
+                    <button type="button" class="mac-button minimize" data-action="minimize" aria-label="Minimize window"></button>
+                    <button type="button" class="mac-button maximize" aria-label="Zoom (unavailable)" tabindex="-1" disabled></button>
                 </div>
                 <div class="title-bar-text">fish.mp4</div>
                 <div class="title-spacer"></div>
@@ -196,7 +197,7 @@
             <div class="window-body">
                 <div class="video-container">
                     <video id="mp4Video" autoplay muted loop playsinline>
-                        <source src="images/about/fish.mp4" type="video/mp4">
+                        <source data-open-src="images/about/fish.mp4" type="video/mp4">
                     </video>
                 </div>
             </div>
@@ -206,9 +207,9 @@
         <div class="window closed" id="notesWindow">
             <div class="title-bar" data-window="notes">
                 <div class="title-bar-controls">
-                    <div class="mac-button close" onclick="handleWindowAction('notes', 'close')"></div>
-                    <div class="mac-button minimize" onclick="handleWindowAction('notes', 'minimize')"></div>
-                    <div class="mac-button maximize"></div>
+                    <button type="button" class="mac-button close" data-action="close" aria-label="Close window"></button>
+                    <button type="button" class="mac-button minimize" data-action="minimize" aria-label="Minimize window"></button>
+                    <button type="button" class="mac-button maximize" aria-label="Zoom (unavailable)" tabindex="-1" disabled></button>
                 </div>
                 <div class="title-bar-text">Notes</div>
                 <div class="title-spacer"></div>
@@ -223,6 +224,67 @@
             </div>
         </div>
 
+
+        <!-- Finder Window -->
+        <div class="window closed" id="finderWindow">
+            <div class="title-bar" data-window="finder">
+                <div class="title-bar-controls">
+                    <button type="button" class="mac-button close" data-action="close" aria-label="Close window"></button>
+                    <button type="button" class="mac-button minimize" data-action="minimize" aria-label="Minimize window"></button>
+                    <button type="button" class="mac-button maximize" aria-label="Zoom (unavailable)" tabindex="-1" disabled></button>
+                </div>
+                <div class="title-bar-text">Finder</div>
+                <div class="title-spacer"></div>
+            </div>
+            <div class="window-body finder-body">
+                <div class="finder-path"><i class="ph-fill ph-folder" aria-hidden="true"></i><span>delicious ramyun</span><i class="ph ph-caret-right" aria-hidden="true"></i><span>about</span></div>
+                <div class="finder-items" role="listbox" aria-label="Files">
+                    <button type="button" class="finder-item" role="option" aria-selected="false" data-open="about">
+                        <span class="finder-thumb finder-thumb-doc"><i class="ph-fill ph-file-text" aria-hidden="true"></i></span>
+                        <span class="finder-name">about.txt</span>
+                    </button>
+                    <button type="button" class="finder-item" role="option" aria-selected="false" data-open="photo">
+                        <span class="finder-thumb finder-thumb-photo"><img src="images/about/me.jpg" alt="" loading="lazy"></span>
+                        <span class="finder-name">me.jpg</span>
+                    </button>
+                    <button type="button" class="finder-item" role="option" aria-selected="false" data-open="video">
+                        <span class="finder-thumb finder-thumb-video"><i class="ph-fill ph-film-strip" aria-hidden="true"></i></span>
+                        <span class="finder-name">fish.mp4</span>
+                    </button>
+                </div>
+                <div class="finder-status">3 items</div>
+            </div>
+        </div>
+
+        <!-- System Preferences Window -->
+        <div class="window closed" id="prefsWindow">
+            <div class="title-bar" data-window="prefs">
+                <div class="title-bar-controls">
+                    <button type="button" class="mac-button close" data-action="close" aria-label="Close window"></button>
+                    <button type="button" class="mac-button minimize" data-action="minimize" aria-label="Minimize window"></button>
+                    <button type="button" class="mac-button maximize" aria-label="Zoom (unavailable)" tabindex="-1" disabled></button>
+                </div>
+                <div class="title-bar-text">System Preferences</div>
+                <div class="title-spacer"></div>
+            </div>
+            <div class="window-body prefs-body">
+                <div class="prefs-section">
+                    <div class="prefs-label" id="prefsBgLabel">Desktop Background</div>
+                    <div class="prefs-segment" role="radiogroup" aria-labelledby="prefsBgLabel">
+                        <button type="button" role="radio" aria-checked="true" data-bg="clouds">Clouds</button>
+                        <button type="button" role="radio" aria-checked="false" data-bg="reverse">Reverse</button>
+                        <button type="button" role="radio" aria-checked="false" data-bg="still">Still</button>
+                    </div>
+                </div>
+                <div class="prefs-section">
+                    <label class="prefs-check">
+                        <input type="checkbox" id="prefsReduceMotion">
+                        <span>Reduce motion</span>
+                    </label>
+                    <p class="prefs-hint" id="prefsReduceHint">Swaps springs and slides for quick fades and pauses the background video.</p>
+                </div>
+            </div>
+        </div>
     </div>
 
     <footer class="site-footer">
@@ -230,7 +292,7 @@
     </footer>
 
     <div class="dock">
-        <div class="dock-item">
+        <div class="dock-item" id="finderDock">
             <div class="dock-icon"><img src="images/icons/finder.png" alt="Finder"></div>
             <div class="dock-indicator"></div>
             <div class="dock-label">Finder</div>
@@ -260,7 +322,7 @@
             <div class="dock-indicator"></div>
             <div class="dock-label">Notes</div>
         </div>
-        <div class="dock-item">
+        <div class="dock-item" id="prefsDock">
             <div class="dock-icon"><img src="images/icons/system preferences.png" alt="System Preferences"></div>
             <div class="dock-indicator"></div>
             <div class="dock-label">System Preferences</div>
@@ -293,7 +355,7 @@
         </div>
 
         <video class="mobile-video-background" autoplay muted loop playsinline>
-            <source src="images/backgrounds/clouds.mp4" type="video/mp4">
+            <source data-src="images/backgrounds/clouds.mp4" type="video/mp4">
         </video>
 
         <div class="mobile-wallpaper">
@@ -345,7 +407,7 @@
         <div class="mobile-modal-content" style="background:#f9f9f9;color:#0f0f0f;">
             <div style="width:100%;background:#000;">
                 <iframe id="mobileYoutubePlayer"
-                        src="https://www.youtube.com/embed/lF6hv4qAKxI?enablejsapi=1&autoplay=0&rel=1"
+                        data-open-src="https://www.youtube.com/embed/lF6hv4qAKxI?enablejsapi=1&autoplay=0&rel=1"
                         style="width:100%;height:250px;border:none;"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowfullscreen>
@@ -382,13 +444,13 @@
             </div>
         </div>
         <div class="mobile-modal-header">
-            <div style="width:60px;"></div>
+            <button type="button" class="mobile-modal-done">Done</button>
             <div class="mobile-modal-title">Music Player</div>
             <div style="width:60px;"></div>
         </div>
         <div class="mobile-modal-content">
             <iframe scrolling="no" allow="autoplay" style="width:100%;height:200px;border:none;"
-                    src="https://w.soundcloud.com/player/?url=https://soundcloud.com/deliciousramyun/fungus&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true">
+                    data-open-src="https://w.soundcloud.com/player/?url=https://soundcloud.com/deliciousramyun/fungus&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true">
             </iframe>
             <div style="padding:15px;background:#f5f5f5;">
                 <p style="margin:0;font-size:13px;color:#666;line-height:1.5;">Listen to tracks from delicious ramyun on SoundCloud.</p>
@@ -409,14 +471,14 @@
             </div>
         </div>
         <div class="mobile-modal-header">
-            <div style="width:60px;"></div>
+            <button type="button" class="mobile-modal-done">Done</button>
             <div class="mobile-modal-title">Photos</div>
             <div style="width:60px;"></div>
         </div>
         <div class="mobile-modal-content" style="text-align:center;padding:20px;">
             <img src="images/about/me.jpg" alt="Photo" style="max-width:100%;height:auto;margin-bottom:15px;border-radius:8px;">
             <video autoplay muted loop playsinline style="max-width:100%;height:auto;border-radius:8px;">
-                <source src="images/about/fish.mp4" type="video/mp4">
+                <source data-open-src="images/about/fish.mp4" type="video/mp4">
             </video>
         </div>
     </div>
@@ -434,7 +496,7 @@
             </div>
         </div>
         <div class="mobile-modal-header">
-            <div style="width:60px;"></div>
+            <button type="button" class="mobile-modal-done">Done</button>
             <div class="mobile-modal-title">Mail</div>
             <div style="width:60px;"></div>
         </div>
@@ -461,7 +523,7 @@
             </div>
         </div>
         <div class="mobile-modal-header">
-            <div style="width:60px;"></div>
+            <button type="button" class="mobile-modal-done">Done</button>
             <div class="mobile-modal-title">Notes</div>
             <div style="width:60px;"></div>
         </div>
@@ -486,7 +548,7 @@
             </div>
         </div>
         <div class="mobile-modal-header">
-            <div style="width:60px;"></div>
+            <button type="button" class="mobile-modal-done">Done</button>
             <div class="mobile-modal-title">About</div>
             <div style="width:60px;"></div>
         </div>
@@ -505,6 +567,8 @@
 
 </div>
 
+<script src="js/motion.js"></script>
+<script src="js/layout.js"></script>
 <script src="https://w.soundcloud.com/player/api.js"></script>
 <script src="https://www.youtube.com/iframe_api"></script>
 <script src="js/desktop.js"></script>

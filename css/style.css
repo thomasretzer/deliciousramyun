@@ -81,13 +81,7 @@ a {
     text-decoration: none;             /* removes underline */
     font-family: "Helvetica", Arial, sans-serif; /* matches your body font */
     font-size: 16px;                   /* matches your base font size */
-    transition: font-size 0.3s ease;   /* smooth size change */
 }
-
-/* Increase size on hover */
-a:hover {
-    font-size: 20px;                   /* larger on hover */
-} 
 
 /* Youtube Integration*/
 /* Make the entire video grid a centered box */
