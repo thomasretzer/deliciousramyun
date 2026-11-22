@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/desktop.css">
     <link rel="stylesheet" href="css/mobile.css">
+    <link rel="stylesheet" href="css/extras.css">
     <script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
 </head>
 <body>
@@ -277,12 +278,36 @@
                     </div>
                 </div>
                 <div class="prefs-section">
+                    <div class="prefs-label" id="prefsSsLabel">Screen Saver</div>
+                    <div class="prefs-segment" role="radiogroup" aria-labelledby="prefsSsLabel">
+                        <button type="button" role="radio" aria-checked="true" data-ss="60000">1 min</button>
+                        <button type="button" role="radio" aria-checked="false" data-ss="300000">5 min</button>
+                        <button type="button" role="radio" aria-checked="false" data-ss="0">Off</button>
+                    </div>
+                </div>
+                <div class="prefs-section">
                     <label class="prefs-check">
                         <input type="checkbox" id="prefsReduceMotion">
                         <span>Reduce motion</span>
                     </label>
                     <p class="prefs-hint" id="prefsReduceHint">Swaps springs and slides for quick fades and pauses the background video.</p>
                 </div>
+            </div>
+        </div>
+
+        <!-- Cloud Hopper (unlocked by an easter egg) -->
+        <div class="window closed" id="gameWindow">
+            <div class="title-bar" data-window="game">
+                <div class="title-bar-controls">
+                    <button type="button" class="mac-button close" data-action="close" aria-label="Close window"></button>
+                    <button type="button" class="mac-button minimize" data-action="minimize" aria-label="Minimize window"></button>
+                    <button type="button" class="mac-button maximize" aria-label="Zoom (unavailable)" tabindex="-1" disabled></button>
+                </div>
+                <div class="title-bar-text">Cloud Hopper</div>
+                <div class="title-spacer"></div>
+            </div>
+            <div class="window-body game-body">
+                <canvas class="game-canvas" id="hopperCanvas" aria-label="Cloud Hopper game"></canvas>
             </div>
         </div>
     </div>
@@ -327,6 +352,11 @@
             <div class="dock-indicator"></div>
             <div class="dock-label">System Preferences</div>
         </div>
+        <div class="dock-item" id="gameDock" hidden>
+            <div class="dock-icon"><img src="images/icons/cloud-hopper.svg" alt="Cloud Hopper"></div>
+            <div class="dock-indicator"></div>
+            <div class="dock-label">Cloud Hopper</div>
+        </div>
         <div class="dock-item" id="trashIcon">
             <div class="dock-icon"><img src="images/icons/news.png" alt="News"></div>
             <div class="dock-indicator"></div>
@@ -364,6 +394,10 @@
                     <div class="mobile-app" data-app="about">
                         <div class="mobile-app-icon app-about">☁️</div>
                         <div class="mobile-app-label">About</div>
+                    </div>
+                    <div class="mobile-app" data-app="game" id="mobileGameApp" hidden>
+                        <div class="mobile-app-icon mobile-app-icon-img"><img src="images/icons/cloud-hopper.svg" alt=""></div>
+                        <div class="mobile-app-label">Hopper</div>
                     </div>
                 </div>
             </div>
@@ -553,7 +587,7 @@
             <div style="width:60px;"></div>
         </div>
         <div class="mobile-modal-content" style="padding:20px;text-align:center;">
-            <img src="images/logo/dramyun_logo.gif" alt="Logo" style="max-width:100%;height:auto;margin-bottom:15px;">
+            <img id="mobileAboutLogo" src="images/logo/dramyun_logo.gif" alt="Logo" style="max-width:100%;height:auto;margin-bottom:15px;">
             <h2 style="margin:0 0 5px;font-size:18px;color:#333;">Head in the Clouds</h2>
             <p style="margin:5px 0;font-size:12px;color:#666;">Version 1.0</p>
             <p style="margin:20px 0 10px;font-size:12px;color:#666;line-height:1.6;">
@@ -565,10 +599,48 @@
         </div>
     </div>
 
+
+    <!-- Cloud Hopper Modal -->
+    <div class="mobile-app-modal" id="mobileModalGame">
+        <div class="mobile-status-bar">
+            <div class="mobile-status-left"><span>📶 Cloud Net 🌐</span></div>
+            <div class="mobile-status-center"><span id="mobileModalStatusTime7">12:00 PM</span></div>
+            <div class="mobile-status-right">
+                <div class="battery-indicator">
+                    <span id="modalBatteryPercent7">100%</span>
+                    <div class="battery-icon"><div class="battery-fill" style="width:100%;"></div></div>
+                </div>
+            </div>
+        </div>
+        <div class="mobile-modal-header">
+            <button type="button" class="mobile-modal-done">Done</button>
+            <div class="mobile-modal-title">Cloud Hopper</div>
+            <div style="width:60px;"></div>
+        </div>
+        <div class="mobile-modal-content game-content">
+            <canvas class="game-canvas" id="hopperCanvasMobile" data-fit="contain" aria-label="Cloud Hopper game"></canvas>
+        </div>
+    </div>
+
+</div>
+
+<div class="screensaver" id="screensaver" aria-hidden="true">
+    <div class="ss-glow"></div>
+    <div class="ss-clouds"></div>
+    <div class="ss-center">
+        <div class="ss-clock">
+            <div class="ss-time"><span class="ss-h"></span><span class="ss-colon">:</span><span class="ss-m"></span><span class="ss-ap"></span></div>
+            <div class="ss-date"></div>
+        </div>
+    </div>
 </div>
 
 <script src="js/motion.js"></script>
 <script src="js/layout.js"></script>
+<script src="js/pixel.js"></script>
+<script src="js/game.js"></script>
+<script src="js/secrets.js"></script>
+<script src="js/screensaver.js"></script>
 <script src="https://w.soundcloud.com/player/api.js"></script>
 <script src="https://www.youtube.com/iframe_api"></script>
 <script src="js/desktop.js"></script>

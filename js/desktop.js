@@ -12,6 +12,7 @@ const windows = {
     notes:   { el: $('notesWindow'),   dock: $('notesIcon'),   origin: $('notesIcon') },
     finder:  { el: $('finderWindow'),  dock: $('finderDock'),  origin: $('finderDock') },
     prefs:   { el: $('prefsWindow'),   dock: $('prefsDock'),   origin: $('prefsDock') },
+    game:    { el: $('gameWindow'),    dock: $('gameDock'),    origin: $('gameDock') },
 };
 
 Object.values(windows).forEach(w => {
@@ -59,6 +60,8 @@ function setWindowTarget(w, target, restingClass) {
     if (target === 1) {
         w.dock?.classList.add('active');
         w.onShow?.();
+    } else {
+        w.onHide?.();
     }
     renderWindow(w);
 
@@ -428,6 +431,28 @@ $('photosIcon')?.addEventListener('click', () => {
     openVideo();
 });
 
+// ==================== CLOUD HOPPER (easter egg) ====================
+
+let hopper = null;
+
+function revealGameDock(animate) {
+    const dock = $('gameDock');
+    if (!dock || !dock.hidden) return;
+    dock.hidden = false;
+    if (animate && !Motion.reduced()) {
+        dock.classList.add('pop');
+        dock.addEventListener('animationend', () => dock.classList.remove('pop'), { once: true });
+    }
+}
+
+if (Secrets.unlocked()) revealGameDock(false);
+window.addEventListener('hopper-unlocked', () => revealGameDock(true));
+
+windows.game.onShow = () => hopper?.resume();
+windows.game.onHide = () => hopper?.pause();
+
+$('gameDock')?.addEventListener('click', () => openWindow('game', w => placeRight(w, 80, 44)));
+
 $('finderDock')?.addEventListener('click', () => openWindow('finder', w => placeAt(w, 60, 90)));
 $('prefsDock')?.addEventListener('click', () => openWindow('prefs', w => placeRight(w, 60, 110)));
 
@@ -534,6 +559,21 @@ document.querySelectorAll('.prefs-segment [data-bg]').forEach(button => {
         applyBackground();
     });
 });
+
+function showScreensaverChoice() {
+    document.querySelectorAll('.prefs-segment [data-ss]').forEach(button => {
+        button.setAttribute('aria-checked', String(Number(button.dataset.ss) === Screensaver.getDelay()));
+    });
+}
+
+document.querySelectorAll('.prefs-segment [data-ss]').forEach(button => {
+    button.addEventListener('click', () => {
+        Screensaver.setDelay(Number(button.dataset.ss));
+        showScreensaverChoice();
+    });
+});
+
+showScreensaverChoice();
 
 const reduceMotionBox = $('prefsReduceMotion');
 
@@ -713,6 +753,10 @@ let scDuration = 0;
 let scProgressInterval = 0;
 let scMuted = false;
 let scLastVolume = 80;
+let scPlaying = false;
+
+// Lets the screensaver know not to start over music or video
+window.isMediaPlaying = () => ytPlaying || scPlaying;
 
 function formatSCTime(ms) {
     return formatTime(ms / 1000);
@@ -744,6 +788,7 @@ function initSoundCloud() {
     });
 
     scWidget.bind(SC.Widget.Events.PLAY, () => {
+        scPlaying = true;
         swapIcon($('scPlayIcon'), 'ph-play', 'ph-pause');
         clearInterval(scProgressInterval);
         scProgressInterval = setInterval(() => {
@@ -756,6 +801,7 @@ function initSoundCloud() {
     });
 
     const onStop = () => {
+        scPlaying = false;
         swapIcon($('scPlayIcon'), 'ph-pause', 'ph-play');
         clearInterval(scProgressInterval);
     };
@@ -834,6 +880,7 @@ updateMenuBarTime();
 onLayout('desktop', () => {
     desktopActive = true;
     applyBackground();
+    hopper = CloudHopper.create($('hopperCanvas'));
     initYouTube();
     initSoundCloud();
 });

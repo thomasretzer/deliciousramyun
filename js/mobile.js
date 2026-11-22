@@ -187,6 +187,7 @@ function bindSheetDrag(s) {
 }
 
 function closeSheet(s) {
+    if (s.el.id === 'mobileModalGame') hopperMobile?.pause();
     document.querySelector('.mobile-dock-container')?.classList.remove('hidden');
     document.querySelector('.mobile-home-button')?.classList.remove('moved-down');
     moveSheet(s, 0);
@@ -213,6 +214,8 @@ function openMobileApp(appName, tapped) {
     document.querySelector('.mobile-dock-container')?.classList.add('hidden');
     document.querySelector('.mobile-home-button')?.classList.add('moved-down');
     moveSheet(s, 1);
+
+    if (appName === 'game') hopperMobile?.resume();
 
     if (appName === 'media') {
         setTimeout(() => fetchYouTubeVideoInfo('lF6hv4qAKxI'), 500);
@@ -247,6 +250,22 @@ document.querySelector('.mobile-home-button')?.addEventListener('click', e => {
 
 document.addEventListener('keydown', e => {
     if (e.key === 'Escape') closeAllModals();
+});
+
+// ==================== CLOUD HOPPER (easter egg) ====================
+
+let hopperMobile = null;
+
+function revealGameApp() {
+    const app = document.getElementById('mobileGameApp');
+    if (app) app.hidden = false;
+}
+
+if (Secrets.unlocked()) revealGameApp();
+window.addEventListener('hopper-unlocked', revealGameApp);
+
+onLayout('mobile', () => {
+    hopperMobile = CloudHopper.create(document.getElementById('hopperCanvasMobile'));
 });
 
 document.querySelectorAll('.mobile-modal-done').forEach(button => {
